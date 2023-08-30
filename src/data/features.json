@@ -1,0 +1,26 @@
+[
+  {
+    "image": "./icons/report.svg",
+    "image2": "./icons/report_colored.svg",
+    "name": "Reporting",
+    "title": "Stay on top of things with always up-to-date reporting features.",
+    "content": "We talked about reporting in the section above but we needed three items here, so mentioning it one more time for posterity.",
+    "isHovered": false
+  },
+  {
+    "image": "./icons/inventory.svg",
+    "image2": "./icons/inventory_colored.svg",
+    "name": "Inventory",
+    "title": "Never lose track of what’s in stock with accurate inventory tracking.",
+    "content": "We don’t offer this as part of our software but that statement is inarguably true. Accurate inventory tracking would help you for sure.",
+    "isHovered": false
+  },
+  {
+    "image": "./icons/customer.svg",
+    "image2": "./icons/customer_colored.svg",
+    "name": "Customers",
+    "title": "Organize all of your contacts, service providers, and invoices in one place.",
+    "content": "This also isn’t actually a feature, it’s just some friendly advice. We definitely recommend that you do this, you’ll feel really organized and professional.",
+    "isHovered": false
+  }
+]
