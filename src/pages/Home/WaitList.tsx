@@ -1,15 +1,18 @@
 import { Button, Grid, TextField, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { postUserData } from "./WaitListSlice";
-import RecordAudio from "../../utilities/RecordAudio";
+import { postUserData } from "../../slices/WaitListSlice";
 import { AppDispatch } from "../../store";
+import Mic from "../../utilities/Mic";
 const useStyles = makeStyles((theme: Theme) => {
   return {
     waitlist: {
       minHeight: "80vh",
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
     },
     span: {
       color: theme.palette.primary.main,
@@ -18,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 function WaitList() {
-  const recorder = useSelector((state: any) => state.WaitList.micStatus);
   const dispatch = useDispatch<AppDispatch>();
   const classes = useStyles();
   const initialValues = {
@@ -53,7 +55,7 @@ function WaitList() {
       </Typography>
       <form onSubmit={formik.handleSubmit}>
         <Grid container sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-          <Grid item md={5} sm={10} xs={10} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "2rem" }}>
+          <Grid item md={5} sm={11} xs={11} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "2rem" }}>
             <TextField variant="outlined" color="primary" label="Full Name" fullWidth {...formik.getFieldProps("name")} />
             <TextField variant="outlined" color="primary" label="Email" fullWidth {...formik.getFieldProps("email")} />
             <TextField variant="outlined" color="primary" label="The Company" fullWidth {...formik.getFieldProps("company")} />
@@ -63,9 +65,10 @@ function WaitList() {
           </Grid>
         </Grid>
       </form>
-      <div style={{ display: "none" }}>
+      {/* <div style={{ display: "none" }}>
         <RecordAudio record={recorder} />
-      </div>
+      </div> */}
+      <Mic />
     </div>
   );
 }

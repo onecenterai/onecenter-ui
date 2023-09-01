@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme: Theme) => {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
+      [theme.breakpoints.down("sm")]: {
+        width: "35rem",
+        height: "7rem",
+      },
     },
     calleravatar: {
       height: "7rem",
@@ -32,6 +36,10 @@ const useStyles = makeStyles((theme: Theme) => {
         scale: "1.05",
         transition: "all ease-in-out .4s",
       },
+      [theme.breakpoints.down("sm")]: {
+        height: "5rem",
+        width: "5rem",
+      },
     },
     callinfo: {
       display: "flex",
@@ -39,8 +47,8 @@ const useStyles = makeStyles((theme: Theme) => {
       gap: ".5rem",
     },
     dot: {
-      height: "1rem !important",
-      width: "1rem !important",
+      height: "1rem",
+      width: "1rem",
       borderRadius: "50%",
       animationName: "my-animation",
       animationDuration: "1s",
@@ -54,24 +62,29 @@ function Caller() {
   const classes = useStyles();
   const time = new Date();
   const callerDisplay = useSelector((state: any) => state.WaitList.callerComponent);
+  const mic = useSelector((state: any) => state.WaitList.startMic);
   console.log(callerDisplay);
-  time.setSeconds(time.getSeconds() + 3);
+  time.setSeconds(time.getSeconds() + 30);
   return (
     <Box style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <Box className={classes.container} sx={{ top: callerDisplay ? "80px" : "-100px" }}>
+      <Box className={classes.container} sx={{ top: callerDisplay ? "80px" : "-180px" }}>
         <Box sx={{ display: "flex", gap: "1rem", padding: "0.8rem" }}>
           <Box className={classes.calleravatar}>
-            <img src="./icons/logoicon.svg" alt="" style={{ height: "6rem", width: "6rem", objectFit: "contain" }} />
+            <img src="./icons/logoicon.svg" alt="" style={{ width: "80%", objectFit: "contain" }} />
           </Box>
           <Box className={classes.callinfo}>
             <Box className={classes.dot} sx={{ backgroundColor: "red" }}></Box>
             <Typography variant="h5" color="white">
-              <Timer
-                expiryTimestamp={time}
-                handleExpire={() => {
-                  console.log("hellow");
-                }}
-              />
+              {mic ? (
+                <Timer
+                  expiryTimestamp={time}
+                  handleExpire={() => {
+                    console.log("hello");
+                  }}
+                />
+              ) : (
+                "--:--"
+              )}
             </Typography>
           </Box>
         </Box>

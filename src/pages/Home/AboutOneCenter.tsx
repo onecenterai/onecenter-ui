@@ -8,16 +8,20 @@ const useStyles = makeStyles((theme: Theme) => {
       backgroundImage: "url(./images/Background.png)",
     },
     dashboardImage: {
-      width: "100%",
-      objectFit: "cover",
-      objectPosition: "center",
-      borderRadius: "5rem",
+      // width: "100%",
+      height: "100vh",
+      objectFit: "contain",
+
+      // objectPosition: "center",
+      // borderRadius: "5rem",
       position: "relative",
-      left: 100,
+      left: 150,
+      top: 20,
       [theme.breakpoints.down("sm")]: {
         left: 0,
         objectFit: "contain",
         borderRadius: "0rem",
+        margin: "2rem 0rem",
       },
     },
   };
@@ -26,7 +30,7 @@ function AboutOneCenter() {
   const classes = useStyles();
   return (
     <Box className={classes.aboutOneCenter}>
-      <Grid container sx={{ position: "relative" }}>
+      <Grid container sx={{ display: "flex", alignItems: "center" }}>
         <Grid item md={12} sx={{ textAlign: "center", padding: "5rem 0rem" }}>
           <Typography variant="h2" color="white">
             Everything you need to know about OneCenter
@@ -35,7 +39,7 @@ function AboutOneCenter() {
             Well everything you need if you aren’t that picky about minor details like tax compliance.{" "}
           </Typography>
         </Grid>
-        <Grid item md={4} sx={{ display: "flex", justifyContent: "center", gap: "3rem", flexDirection: "column", paddingLeft: "5rem" }}>
+        <Grid item md={4} sx={{ display: "flex", justifyContent: "center", gap: "3rem", flexDirection: "column", paddingLeft: "2rem" }}>
           <Typography variant="h3" color="white">
             Something should be here with an action button also
           </Typography>

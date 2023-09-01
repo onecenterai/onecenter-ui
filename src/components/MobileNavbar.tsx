@@ -4,6 +4,13 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
+    mobileNavbar: {
+      padding: "2rem 0rem",
+      display: "none",
+      [theme.breakpoints.down("sm")]: {
+        display: "block",
+      },
+    },
     ul: {
       fontSize: "1.4rem",
       fontWeight: 500,
@@ -13,10 +20,6 @@ const useStyles = makeStyles((theme: Theme) => {
       gap: "3.5rem",
       listStyle: "none",
       height: "100%",
-    },
-    mobileNavbar: {
-      padding: "2rem 0rem",
-      [theme.breakpoints.down("sm")]: {},
     },
   };
 });

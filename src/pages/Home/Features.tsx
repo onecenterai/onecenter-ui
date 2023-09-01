@@ -2,24 +2,17 @@ import { Box, Container, Grid, Paper, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import features from "../../data/features.json";
 import { useState } from "react";
-import partnerships from "../../data/partnerships.json";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
     features: {
-      minHeight: "110vh",
-      marginBottom: "10rem",
+      minHeight: "90vh",
     },
     paper: {
       height: "40vh",
       padding: "2rem 3rem",
-    },
-    partnerImage: {
-      width: "150px",
-      height: "auto",
-      filter: "grayscale(100%)",
       [theme.breakpoints.down("sm")]: {
-        width: "100px",
+        boxShadow: "rgba(100, 100, 111, 0.2) 0px 10px 29px 0px !important",
       },
     },
   };
@@ -36,16 +29,6 @@ function Features() {
   return (
     <div className={classes.features} id="features">
       <Container>
-        <Grid item md={12} sx={{ padding: "5rem 0rem" }}>
-          <Typography variant="body1" color="error" sx={{ textAlign: "center" }}>
-            We have partnerships with three companies so far
-          </Typography>
-          <div className="flexCenter" style={{ gap: "2rem", height: "70px" }}>
-            {partnerships.map((partner) => {
-              return <img src={partner.image} className={classes.partnerImage} />;
-            })}
-          </div>
-        </Grid>
         <Box sx={{ margin: "4rem 0rem" }}>
           <Typography variant="h2" sx={{ textAlign: "center" }}>
             What makes us special and unique?

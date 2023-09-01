@@ -9,7 +9,7 @@ const theme = createTheme({
       fontSize: "7rem",
       fontWeight: 500,
       [breakpoints.down("sm")]: {
-        fontSize: "4rem",
+        fontSize: "5rem",
       },
     },
     h2: {
@@ -17,7 +17,7 @@ const theme = createTheme({
       fontSize: "4.5rem",
       fontWeight: 700,
       [breakpoints.down("sm")]: {
-        fontSize: "3rem",
+        fontSize: "2.5rem",
       },
     },
     h3: {
@@ -25,27 +25,28 @@ const theme = createTheme({
       fontSize: "2.5rem",
       fontWeight: 700,
       [breakpoints.down("sm")]: {
-        fontSize: "2rem",
+        fontSize: "1.8rem",
       },
     },
     h5: {
       fontFamily: "Lexend",
       fontSize: "1.85rem",
       fontWeight: 400,
-      // [breakpoints.down("sm")]: {
-      //   fontSize: "1.6rem",
-      // },
+      [breakpoints.down("sm")]: {
+        fontSize: "1.5rem",
+      },
     },
     h6: {
       fontSize: "1.4rem",
       fontWeight: 500,
-      // [breakpoints.down("sm")]: {
-      //   fontSize: "1.5rem",
-      // },
     },
     body1: {
       fontSize: "1.7rem",
       fontWeight: 400,
+      lineHeight: "3.5rem",
+      [breakpoints.down("sm")]: {
+        fontSize: "1.8rem",
+      },
     },
     body2: {
       fontSize: "1.7rem",

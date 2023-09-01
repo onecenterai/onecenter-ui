@@ -1,28 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import BinarytoAudio from "../../utilities/BinarytoAudio";
+import BinarytoAudio from "../utilities/BinarytoAudio";
+
 const initialState = {
   userId: [],
-  reviews: [],
-  micStatus: false,
   callerComponent: false,
-
+  callStatus: "red",
+  startMic: false,
   status: "idle",
   error: null,
 };
-export const getUsersReview = createAsyncThunk("user/get", async () => {
-  try {
-    const response = await axios.get("https://api.onecenter.itcentral.ng/reviews");
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-});
 export const postUserData = createAsyncThunk("user/post", async (values: object, { dispatch }) => {
   dispatch(setCallerComponent());
   let ringer = new Audio("./audio/ringer.mp3");
   ringer.loop = true;
   ringer.play();
+
   try {
     const response = await axios.post("https://api.onecenter.itcentral.ng/review", values, {
       headers: {
@@ -33,15 +26,14 @@ export const postUserData = createAsyncThunk("user/post", async (values: object,
 
     if (response.status >= 200 && response.status < 300) {
       ringer.pause();
+
       const id = response.headers["review-id"];
       if (!id) {
         dispatch(setCallerComponent());
       }
+      dispatch(connected());
       BinarytoAudio(response.data, () => {
-        dispatch(setMicStatus());
-        setTimeout(() => {
-          dispatch(resetMicStatus());
-        }, 10000);
+        dispatch(micToggle(true));
       });
 
       return id;
@@ -66,6 +58,7 @@ export const postUserReview = createAsyncThunk("review/patch", async (audioFile:
     });
     if (response.status >= 200 && response.status < 300) {
       console.log(response.data);
+      thunkAPI.dispatch(connected());
       BinarytoAudio(response.data);
       thunkAPI.dispatch(setCallerComponent());
     }
@@ -77,14 +70,14 @@ export const WaitListSlice = createSlice({
   name: "WaitList",
   initialState,
   reducers: {
-    setMicStatus: (state) => {
-      state.micStatus = true;
-    },
-    resetMicStatus: (state) => {
-      state.micStatus = false;
-    },
     setCallerComponent: (state) => {
       state.callerComponent = !state.callerComponent;
+    },
+    connected: (state) => {
+      state.callStatus = "green";
+    },
+    micToggle: (state, action) => {
+      state.startMic = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -93,10 +86,7 @@ export const WaitListSlice = createSlice({
       state.status = "success";
       console.log(state.userId);
     });
-    builder.addCase(getUsersReview.fulfilled, (state, action) => {
-      state.reviews = action.payload;
-    });
   },
 });
-export const { setMicStatus, resetMicStatus, setCallerComponent } = WaitListSlice.actions;
+export const { setCallerComponent, connected, micToggle } = WaitListSlice.actions;
 export default WaitListSlice.reducer;

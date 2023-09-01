@@ -1,6 +1,7 @@
+import "regenerator-runtime/runtime";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { postUserReview } from "../pages/Home/WaitListSlice";
+import { postUserReview } from "../slices/WaitListSlice";
 import { AppDispatch } from "../store";
 // @ts-ignore
 import { ReactMic } from "@cleandersonlobo/react-mic";

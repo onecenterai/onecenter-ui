@@ -7,13 +7,14 @@ import Home from "./pages/Home/Home";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import Caller from "./components/Caller";
+import MobileNavbar from "./components/MobileNavbar";
 
 function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Navbar />
-        {/* <MobileNavbar /> */}
+        <MobileNavbar />
         <Caller />
         <Routes>
           <Route path="/" element={<Home />} />
