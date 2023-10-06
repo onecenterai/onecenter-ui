@@ -2,8 +2,7 @@ async function BinarytoAudio(data: any, audioDone?: () => void) {
   const audioContext = new AudioContext();
 
   try {
-    const buffer = await data;
-    const decodedData = await audioContext.decodeAudioData(buffer);
+    const decodedData = await audioContext.decodeAudioData(data); // Pass the binary data directly
     const source = audioContext.createBufferSource();
     source.buffer = decodedData;
     source.connect(audioContext.destination);

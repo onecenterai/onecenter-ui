@@ -1,5 +1,6 @@
 import { Button, Container, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -46,14 +47,18 @@ function Navbar() {
           <Grid item md={6} sx={{ display: "flex", justifyContent: "end" }}>
             <ul className={classes.ul}>
               <li>
-                <Button variant="text" color="secondary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
-                  Sign in
-                </Button>
+                <Link to="/signin">
+                  <Button variant="text" color="secondary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
+                    Sign in
+                  </Button>
+                </Link>
               </li>
               <li>
-                <Button variant="contained" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
-                  Join Beta Testing
-                </Button>
+                <Link to="/signup">
+                  <Button variant="contained" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
+                    Join Beta Testing
+                  </Button>
+                </Link>
               </li>
             </ul>
           </Grid>

@@ -12,12 +12,39 @@ a {
 html {
   font-size: 62.5%;
 }
-.flexCenter {
+.flex {
+  display: flex;
+}
+.center-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
+.center-space-btw {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+.space-btw {
+  display: flex !important;
+  justify-content: space-between;
+}
+.justify-center {
+  display: flex !important;
+  justify-content: center;
+}
+.justify-space-btw {
+  display: flex !important;
+  justify-content: space-between;
+}
+.justify-space-arnd {
+  display: flex !important;
+  justify-content: space-around;
+}
+.align-center {
+  display: flex !important;
+  align-items: center;
+}
 @keyframes my-animation {
   from {
     /* background-color: #ff7a59; */

@@ -3,8 +3,6 @@ import AboutOneCenter from "./AboutOneCenter";
 import Faqs from "./Faqs";
 import Features from "./Features";
 import HeroSection from "./HeroSection";
-import Reviews from "./Reviews";
-import WaitList from "./WaitList";
 
 function Home() {
   return (
@@ -12,8 +10,6 @@ function Home() {
       <HeroSection />
       <AboutOneCenter />
       <Features />
-      <WaitList />
-      <Reviews />
       <Faqs />
       <Footer />
     </div>

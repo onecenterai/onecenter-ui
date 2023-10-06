@@ -6,7 +6,7 @@ import partnerships from "../../data/partnerships.json";
 const useStyles = makeStyles((theme: Theme) => {
   return {
     heroSection: {
-      height: "100vh",
+      height: "90vh",
     },
     parentspan: {
       backgroundImage: "url('./icons/marker.svg')",
@@ -37,7 +37,7 @@ function HeroSection() {
   const classes = useStyles();
   return (
     <div className={classes.heroSection}>
-      <Container sx={{ height: "100%", display: "flex", justifyContent: "space-around", flexDirection: "column" }}>
+      <Container sx={{ height: "100%", display: "flex", justifyContent: "space-evenly", flexDirection: "column" }}>
         <div>
           <Typography variant="h1" color="error" sx={{ textAlign: "center" }}>
             Customer Service made simple for
@@ -52,10 +52,10 @@ function HeroSection() {
           <Typography variant="body1" color="secondary" sx={{ textAlign: "center", padding: "4rem 0rem" }}>
             Most book-keeping software is accurate, but hard to use. We make the <br /> opposite trade-off, and hope you don’t get audited.
           </Typography>
-          <Grid className="flexCenter" sx={{ gap: "2rem", padding: "2rem 0rem" }}>
+          <Grid className="center-center" sx={{ gap: "2rem", padding: "2rem 0rem" }}>
             <a href="#waitlist">
               <Button variant="contained" color="error" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
-                Join the waitlist
+                Get Started
               </Button>
             </a>
             <Button variant="outlined" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
@@ -63,11 +63,11 @@ function HeroSection() {
             </Button>
           </Grid>
         </div>
-        <Grid item md={12} sx={{ padding: "5rem 0rem" }}>
+        <Grid item md={12}>
           <Typography variant="body2" color="error" sx={{ textAlign: "center", fontFamily: "lexend" }}>
             We have partnerships with three companies so far
           </Typography>
-          <div className="flexCenter" style={{ gap: "2rem", height: "70px" }}>
+          <div className="center-center" style={{ gap: "2rem", height: "70px" }}>
             {partnerships.map((partner) => {
               return <img src={partner.image} className={classes.partnerImage} />;
             })}

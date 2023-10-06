@@ -6,7 +6,7 @@ import { useState } from "react";
 const useStyles = makeStyles((theme: Theme) => {
   return {
     features: {
-      minHeight: "90vh",
+      minHeight: "auto",
     },
     paper: {
       height: "40vh",
