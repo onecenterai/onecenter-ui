@@ -1,9 +1,7 @@
 import { AppBar, Box, Container, Drawer, Grid, Toolbar, Typography } from "@mui/material";
 import NavTab from "./NavTab";
 import { useLocation } from "react-router-dom";
-import { ReactNode, useState } from "react";
-import SearchBar from "../components/SearchBar";
-import { useSelector } from "react-redux";
+import { ReactNode } from "react";
 const drawerWidth = 240;
 
 interface LayoutProp {
@@ -11,14 +9,10 @@ interface LayoutProp {
 }
 function Layout({ children }: LayoutProp) {
   const location = useLocation();
-  const [showSearchBar, setShowSearchBar] = useState(false);
-  const userDetails = JSON.parse(localStorage.getItem("data"));
+  const storedData = localStorage.getItem("data");
+  const userDetails = storedData ? JSON.parse(storedData) : null;
   console.log(userDetails);
-  console.log(userDetails);
-  const handleSearchBar = () => {
-    setShowSearchBar(!showSearchBar);
-    console.log(showSearchBar);
-  };
+
   return (
     <Box sx={{ backgroundColor: "primary", height: "auto" }}>
       <Drawer
@@ -42,7 +36,7 @@ function Layout({ children }: LayoutProp) {
             </Typography>
           </Box>
           <Box sx={{ width: "100%" }}>
-            <NavTab handleSearch={handleSearchBar} />
+            <NavTab />
           </Box>
         </Container>
       </Drawer>

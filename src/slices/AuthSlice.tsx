@@ -20,6 +20,7 @@ export const logUser = createAsyncThunk("log/user", async (credentials: {}) => {
       console.log(data);
       localStorage.setItem("data", JSON.stringify(data));
       sessionStorage.setItem("token", data.token);
+      console.log(data.token);
 
       return data;
     }

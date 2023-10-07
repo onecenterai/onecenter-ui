@@ -6,7 +6,8 @@ const initialState = {
   postManualStatus: "idle",
 };
 const token = sessionStorage.getItem("token");
-export const postManual = createAsyncThunk("manualurl/post", async (values) => {
+console.log(token);
+export const postManual = createAsyncThunk("manualurl/post", async (values: {}) => {
   try {
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/resource`, values, {
       headers: {
@@ -23,9 +24,9 @@ export const postManual = createAsyncThunk("manualurl/post", async (values) => {
     console.error("Error:", error);
   }
 });
-export const trainManual = createAsyncThunk("manualurl/train", async (id) => {
+export const trainManual = createAsyncThunk("manualurl/train", async (id: string | number) => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/resource/${id}/train`, {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/resource/${id}/train`, id, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -33,6 +34,7 @@ export const trainManual = createAsyncThunk("manualurl/train", async (id) => {
     });
 
     if (response.status >= 200 && response.status < 300) {
+      console.log(response.data);
     } else {
       console.error("Error:", response.status, response.statusText);
     }
@@ -40,7 +42,7 @@ export const trainManual = createAsyncThunk("manualurl/train", async (id) => {
     console.error("Error:", error);
   }
 });
-export const deleteManual = createAsyncThunk("manualurl/delete", async (id) => {
+export const deleteManual = createAsyncThunk("manualurl/delete", async (id: string | number) => {
   try {
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/resource/${id}`, {
       headers: {
@@ -59,6 +61,7 @@ export const deleteManual = createAsyncThunk("manualurl/delete", async (id) => {
 });
 
 export const getManuals = createAsyncThunk("manuals/get", async () => {
+  console.log(token);
   try {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/resources`, {
       headers: {

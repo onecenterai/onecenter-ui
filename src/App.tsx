@@ -14,8 +14,6 @@ import Company from "./pages/Company/Company";
 import SignIn from "./pages/AuthUi/SignIn/SignIn";
 import Signup from "./pages/AuthUi/SignUp/Signup";
 import UploadResource from "./pages/Dashboard/UploadResource";
-import Layout from "./pages/Dashboard/layout/Layout";
-import Dashboard from "./pages/Dashboard/Dashboard";
 import Resources from "./pages/Dashboard/Resources/Resources";
 function App() {
   const location = useLocation();

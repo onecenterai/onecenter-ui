@@ -1,42 +1,42 @@
-import React, { useEffect } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import Layout from "../layout/Layout";
-import { Container, IconButton, Menu, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
+import { Container, IconButton, Menu, MenuItem, Table, TableBody, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { useSelector } from "react-redux";
 import { deleteManual, getManuals, trainManual } from "../../../slices/PostManualSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
 import { StyledTableCell, StyledTableRow } from "../../../styled-components/styledTable";
-import { Delete, Info, More, MoreHorizRounded, PlayLesson } from "@mui/icons-material";
-import MoreInforMenu from "./MoreInfoMenu";
+import { Delete, Info, MoreHorizRounded, PlayLesson } from "@mui/icons-material";
 import BasicModal from "../../../components/Modal";
+// import { RootState } from "react-redux";
 
 function Resources() {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getManuals());
   }, []);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (event: unknown | null, newPage: number) => {
+    console.log(event);
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event: any) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const resources = useSelector((state) => state.Manuals.resources);
+  const resources = useSelector((state: any) => state.Manuals.resources);
 
-  // const resources = JSON.parse(sessionStorage.getItem("resources"));
   return (
     <Layout>
       <Container>
@@ -54,7 +54,7 @@ function Resources() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {resources?.map((resource) => {
+              {resources?.map((resource: any) => {
                 return (
                   <StyledTableRow>
                     <StyledTableCell>{resource.title}</StyledTableCell>

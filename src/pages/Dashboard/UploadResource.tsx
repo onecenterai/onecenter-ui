@@ -1,20 +1,18 @@
-import { Box, Button, Grid, IconButton, Typography, styled } from "@mui/material";
+import { Box, Button, Grid, Typography, styled } from "@mui/material";
 import Layout from "./layout/Layout";
-import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { uploadFile } from "../../slices/UploadSlice";
-import { getManuals, postManual } from "../../slices/PostManualSlice";
 import { StyledInput } from "../../styled-components/styledInput";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import { StyledButton } from "../../styled-components/styledButton";
-import { useNavigate } from "react-router-dom";
 import { WaveLoader } from "react-loaders-kit";
+import { postManual } from "../../slices/PostManualSlice";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const VisuallyHiddenInput = styled("input")({
-  // clip: "rect(0 0 0 0)",
-  // clipPath: "inset(50%)",
   opacity: 0,
   height: "100%",
   overflow: "hidden",
@@ -24,16 +22,22 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: "100%",
 });
+
 function UploadResource() {
+  interface FormValues {
+    title: string;
+    description: string;
+    url: any;
+  }
   const initialValues = {
     title: "",
     description: "",
-    file: "",
+    url: "",
   };
 
-  const navigate = useNavigate();
   const postStatus = useSelector((state: any) => state.Manuals.postManualStatus);
-  const loading = postStatus == "loading" ? true : false;
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const loaderProps = {
     loading,
@@ -42,12 +46,24 @@ function UploadResource() {
     colors: ["#5e22f0", "#f6b93b"],
   };
 
-  const onSubmit = (values) => {
-    dispatch(uploadFile(values.file)).then((action) => {
+  const onSubmit = (values: FormValues) => {
+    setLoading(true);
+    dispatch(uploadFile(values.url)).then((action) => {
       if (action.payload) {
         const url = action.payload.url;
-        const updatedValues = { ...values, file: url };
-        dispatch(postManual(updatedValues));
+        console.log(url);
+        const updatedValues = { ...values, url: url };
+        console.log(updatedValues);
+        dispatch(postManual(updatedValues)).then(() => {
+          if (postStatus === "successful") {
+            alert("Resource added successfully");
+            setLoading(false);
+            navigate("/resources");
+          }
+        });
+      } else {
+        setLoading(false);
+        alert("A problem occurred");
       }
     });
   };
@@ -81,11 +97,14 @@ function UploadResource() {
           </Grid>
           <Grid item md={12}>
             <Button sx={{ height: "20rem", width: "100%", borderRadius: "1rem", border: "1px dashed black", margin: "auto !important" }}>
-              <Typography variant="h3">{formik.values.file != "" ? "Resource Added" : "Upload Resource"}</Typography>
+              <Typography variant="h3">{formik.values.url ? "Resource Added" : "Upload Resource"}</Typography>
               <VisuallyHiddenInput
                 type="file"
                 onChange={(event) => {
-                  formik.setFieldValue("file", event?.target?.files[0]);
+                  const file = event?.target?.files?.[0];
+                  if (file) {
+                    formik.setFieldValue("url", file);
+                  }
                 }}
               />
             </Button>
@@ -94,7 +113,7 @@ function UploadResource() {
             {!loading ? (
               <StyledButton
                 onClick={() => {
-                  formik.handleSubmit;
+                  formik.handleSubmit();
                 }}
                 fullWidth
                 variant="contained"

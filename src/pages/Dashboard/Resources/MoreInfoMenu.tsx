@@ -3,7 +3,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { IconButton } from "@mui/material";
 import { Delete, Info, MoreHorizRounded, PlayLesson } from "@mui/icons-material";
-import BasicModal from "../../../components/Modal";
 
 export default function MoreInforMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

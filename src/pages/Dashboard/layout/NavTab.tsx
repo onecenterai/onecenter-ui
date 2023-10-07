@@ -1,6 +1,4 @@
-import React from "react";
-// import { navigation } from "../local-data/navigation";
-import { Box, MenuItem, Paper, Theme, Typography } from "@mui/material";
+import { Box, MenuItem, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useLocation, useNavigate } from "react-router-dom";
 import { navigation } from "../../../data/navigation";
@@ -26,7 +24,8 @@ const useStyles = makeStyles((theme: Theme) => {
     },
   };
 });
-function NavTab({ handleSearch }) {
+
+function NavTab() {
   const navigate = useNavigate();
   const classes = useStyles();
   const location = useLocation();

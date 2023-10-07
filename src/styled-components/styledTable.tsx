@@ -1,11 +1,6 @@
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { TablePagination } from "@mui/material";
 
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -35,7 +30,7 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-export const StyledTablePagination = styled(TablePagination)(({ theme }) => ({
+export const StyledTablePagination = styled(TablePagination)(({}) => ({
   fontSize: "1rem",
   "& .MuiTablePagination-selectLabel": {
     fontSize: "1rem",
