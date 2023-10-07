@@ -68,7 +68,7 @@ function SignIn() {
     console.log(userToken);
     if (userToken) {
       if (userRole === "agentadmin") {
-        navigate("/resources");
+        navigate("/upload");
       } else {
         navigate("/demo");
       }
