@@ -17,7 +17,6 @@ import UploadResource from "./pages/Dashboard/UploadResource";
 import Resources from "./pages/Dashboard/Resources/Resources";
 function App() {
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <SipProvider
       host="sip.onsip.com"

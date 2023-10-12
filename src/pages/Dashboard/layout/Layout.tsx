@@ -11,7 +11,6 @@ function Layout({ children }: LayoutProp) {
   const location = useLocation();
   const storedData = localStorage.getItem("data");
   const userDetails = storedData ? JSON.parse(storedData) : null;
-  console.log(userDetails);
 
   return (
     <Box sx={{ backgroundColor: "primary", height: "auto" }}>

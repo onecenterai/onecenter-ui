@@ -59,7 +59,7 @@ function Resources() {
                   <StyledTableRow>
                     <StyledTableCell>{resource.title}</StyledTableCell>
                     <StyledTableCell>{resource.description}</StyledTableCell>
-                    <StyledTableCell>{resource.training_status}</StyledTableCell>
+                    <StyledTableCell>{resource.training_status == null ? "Not Trained" : resource.training_status}</StyledTableCell>
                     <StyledTableCell>
                       <div>
                         <IconButton id="basic-button" aria-controls={open ? "basic-menu" : undefined} aria-haspopup="true" aria-expanded={open ? "true" : undefined} onClick={handleClick}>

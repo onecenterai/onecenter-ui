@@ -10,7 +10,7 @@ import { StyledButton } from "../../styled-components/styledButton";
 import { WaveLoader } from "react-loaders-kit";
 import { postManual } from "../../slices/PostManualSlice";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const VisuallyHiddenInput = styled("input")({
   opacity: 0,
@@ -54,24 +54,20 @@ function UploadResource() {
         console.log(url);
         const updatedValues = { ...values, url: url };
         console.log(updatedValues);
-        dispatch(postManual(updatedValues)).then(() => {
-          if (postStatus === "successful") {
-            alert("Resource added successfully");
-            setLoading(false);
-            navigate("/resources");
-          }
-        });
+        dispatch(postManual(updatedValues));
       } else {
         setLoading(false);
         alert("A problem occurred");
       }
     });
   };
-
-  const resources = useSelector((state: any) => {
-    return state.Manuals.resources;
-  });
-  console.log(resources);
+  useEffect(() => {
+    if (postStatus === "successful") {
+      alert("Resource added successfully");
+      setLoading(false);
+      navigate("/resources");
+    }
+  }, [postStatus]);
 
   const formik = useFormik({
     initialValues,
