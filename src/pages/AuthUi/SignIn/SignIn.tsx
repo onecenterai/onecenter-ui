@@ -67,6 +67,7 @@ function SignIn() {
     const userRole = action?.payload?.user?.role;
     console.log(userToken);
     if (userToken) {
+      sessionStorage.setItem("token", userToken);
       if (userRole === "agentadmin") {
         navigate("/upload");
       } else {

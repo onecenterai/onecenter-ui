@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import Caller from "./components/Caller";
 import MobileNavbar from "./components/MobileNavbar";
-import Demo from "./pages/Demo/Demo";
+import Demo from "./pages/TryOneCenter/Demo";
 import { SipProvider } from "react-sip";
 import Company from "./pages/Company/Company";
 import SignIn from "./pages/AuthUi/SignIn/SignIn";

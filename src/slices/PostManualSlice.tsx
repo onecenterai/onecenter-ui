@@ -5,10 +5,9 @@ const initialState = {
   resources: [],
   postManualStatus: "idle",
 };
-const token = sessionStorage.getItem("token");
-console.log(token);
 export const postManual = createAsyncThunk("manualurl/post", async (values: {}) => {
   try {
+    const token = sessionStorage.getItem("token");
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/resource`, values, {
       headers: {
         "Content-Type": "application/json",
@@ -26,6 +25,8 @@ export const postManual = createAsyncThunk("manualurl/post", async (values: {}) 
 });
 export const trainManual = createAsyncThunk("manualurl/train", async (id: string | number) => {
   try {
+    const token = sessionStorage.getItem("token");
+
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/resource/${id}/train`, id, {
       headers: {
         "Content-Type": "application/json",
@@ -44,6 +45,8 @@ export const trainManual = createAsyncThunk("manualurl/train", async (id: string
 });
 export const deleteManual = createAsyncThunk("manualurl/delete", async (id: string | number) => {
   try {
+    const token = sessionStorage.getItem("token");
+
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/resource/${id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -61,8 +64,9 @@ export const deleteManual = createAsyncThunk("manualurl/delete", async (id: stri
 });
 
 export const getManuals = createAsyncThunk("manuals/get", async () => {
-  console.log(token);
   try {
+    const token = sessionStorage.getItem("token");
+
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/resources`, {
       headers: {
         Authorization: `Bearer ${token}`,
