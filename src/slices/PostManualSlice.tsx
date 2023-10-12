@@ -78,7 +78,11 @@ export const getManuals = createAsyncThunk("manuals/get", async () => {
 export const PostManualSlice = createSlice({
   name: "File",
   initialState,
-  reducers: {},
+  reducers: {
+    postManualIdle: (state) => {
+      state.postManualStatus = "idle";
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getManuals.fulfilled, (state: any, action) => {
       state.resources = action.payload;
@@ -94,5 +98,5 @@ export const PostManualSlice = createSlice({
     });
   },
 });
-
+export const { postManualIdle } = PostManualSlice.actions;
 export default PostManualSlice.reducer;

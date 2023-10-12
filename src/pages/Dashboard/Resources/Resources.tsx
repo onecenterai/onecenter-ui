@@ -8,7 +8,6 @@ import { AppDispatch } from "../../../store";
 import { StyledTableCell, StyledTableRow } from "../../../styled-components/styledTable";
 import { Delete, Info, MoreHorizRounded, PlayLesson } from "@mui/icons-material";
 import BasicModal from "../../../components/Modal";
-// import { RootState } from "react-redux";
 
 function Resources() {
   const dispatch = useDispatch<AppDispatch>();
@@ -77,7 +76,11 @@ function Resources() {
                           <MenuItem
                             // onClick={handleClose}
                             onClick={() => {
-                              dispatch(trainManual(resource.id));
+                              dispatch(trainManual(resource.id)).then(() => {
+                                dispatch(getManuals()).then(() => {
+                                  handleClose();
+                                });
+                              });
                             }}
                           >
                             <PlayLesson sx={{ marginRight: ".5rem" }} />
@@ -97,7 +100,11 @@ function Resources() {
                             // onClick={handleClose}
                             sx={{ color: "red" }}
                             onClick={() => {
-                              dispatch(deleteManual(resource.id));
+                              dispatch(deleteManual(resource.id)).then(() => {
+                                dispatch(getManuals()).then(() => {
+                                  handleClose();
+                                });
+                              });
                             }}
                           >
                             <Delete sx={{ marginRight: ".5rem" }} /> Delete

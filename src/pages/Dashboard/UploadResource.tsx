@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import { StyledButton } from "../../styled-components/styledButton";
 import { WaveLoader } from "react-loaders-kit";
-import { postManual } from "../../slices/PostManualSlice";
+import { postManual, postManualIdle } from "../../slices/PostManualSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -66,6 +66,7 @@ function UploadResource() {
       alert("Resource added successfully");
       setLoading(false);
       navigate("/resources");
+      dispatch(postManualIdle());
     }
   }, [postStatus]);
 
@@ -96,6 +97,7 @@ function UploadResource() {
               <Typography variant="h3">{formik.values.url ? "Resource Added" : "Upload Resource"}</Typography>
               <VisuallyHiddenInput
                 type="file"
+                accept=".pdf"
                 onChange={(event) => {
                   const file = event?.target?.files?.[0];
                   if (file) {
