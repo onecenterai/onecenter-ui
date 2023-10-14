@@ -1,16 +1,48 @@
-import { Grid, IconButton, InputAdornment, Typography } from "@mui/material";
+import { Alert, Grid, IconButton, InputAdornment, Typography } from "@mui/material";
 import { StyledInput } from "../../../../styled-components/styledInput";
 import { StyledButton } from "../../../../styled-components/styledButton";
 import { ChevronLeft, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
+import { WaveLoader } from "react-loaders-kit";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-function AboutAgentForm({ handleSlideChange, formik }: any) {
+function AboutAgentForm({ handleSlideChange, formik, alertMessage }: any) {
   const [showPassword, setShowPassword] = useState(false);
+  const loading = useSelector((state: any) => state.Auth.loginStatus.loader);
+  const loaderProps = {
+    loading,
+    size: 35,
+    duration: 1,
+    colors: ["#5e22f0", "#f6b93b"],
+  };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
     <Grid container>
+      {alertMessage && (
+        <Alert severity="error" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
+          {alertMessage}.{" "}
+          {alertMessage != "Account needs email and password" ? (
+            <Link to="/signin" style={{ textDecoration: "underline", color: "#3A49F9" }}>
+              Sign In
+            </Link>
+          ) : null}
+        </Alert>
+      )}
+      {/* {loginStatus == "success" ? (
+        <Alert severity="success" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
+          Sign Up Successful,{" "}
+          <Link to="/signin" style={{ textDecoration: "underline", color: "#3A49F9" }}>
+            Sign in
+          </Link>
+        </Alert>
+      ) : loginStatus == "failed" ? (
+        <Alert severity="warning" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
+          There was an error, try Again{" "}
+        </Alert>
+      ) : null} */}
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Name
@@ -55,10 +87,23 @@ function AboutAgentForm({ handleSlideChange, formik }: any) {
           <ChevronLeft sx={{ fontSize: "2rem" }} />
         </IconButton>
       </Grid>
+
+      <Grid item md={12} sx={{ marginBottom: "1.5rem" }} className="justify-center">
+        {!loading ? (
+          <StyledButton variant="contained" color="primary" fullWidth onClick={formik.handleSubmit}>
+            Complete Sign Up
+          </StyledButton>
+        ) : (
+          <WaveLoader {...loaderProps} />
+        )}
+      </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
-        <StyledButton variant="contained" color="primary" fullWidth onClick={formik.handleSubmit}>
-          Complete Sign Up
-        </StyledButton>
+        <Typography variant="h6" color="info" sx={{ fontWeight: 400 }}>
+          Have an account?{" "}
+          <Link to="/signin" style={{ textDecoration: "underline", color: "#3A49F9", fontWeight: 600 }}>
+            Sign In
+          </Link>
+        </Typography>
       </Grid>
     </Grid>
   );

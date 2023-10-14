@@ -1,16 +1,12 @@
-import { Box, Container, Divider, Grid, Paper, Theme, Typography } from "@mui/material";
+import { Box, Container, Grid, Paper, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-// import { useState } from "react";
-// import { callPropType, sipPropType } from "react-sip";
 import { phoneStore } from "react-sip-phone";
 import { StyledButton } from "../../styled-components/styledButton";
-import { Edit } from "@mui/icons-material";
 const useStyles = makeStyles((theme: Theme) => {
   return {
     paper: {
       padding: "2rem 0rem",
       height: "33rem",
-      // backgroundColor: `#eff2f6 !important`,
       boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px !Important",
       width: "100%",
       borderRadius: "2rem !important",
@@ -64,7 +60,7 @@ function Card() {
                   <Typography variant="h5" className={classes.h4} textAlign="left">
                     Schoola App
                   </Typography>
-                  <Typography variant="h6" className={classes.h6} textAlign="left">
+                  <Typography variant="h6" textAlign="left">
                     schoola.app
                   </Typography>
                 </Box>

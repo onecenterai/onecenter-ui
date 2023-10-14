@@ -2,7 +2,7 @@ import AboutCompanyForm from "./AboutCompanyForm";
 import AboutAgentForm from "./AboutAgentForm";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../store";
@@ -10,6 +10,7 @@ import { registerPartner } from "../../../../slices/AuthSlice";
 
 function PartnerSignUp() {
   const splideRef = useRef(null);
+  const [alert, setAlert] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const handleSlideChange = (index: number) => {
     (splideRef.current as any)?.go(index);
@@ -30,7 +31,14 @@ function PartnerSignUp() {
   };
 
   const onSubmit = (values: {}) => {
-    dispatch(registerPartner(values));
+    dispatch(registerPartner(values)).then((action) => {
+      if (action?.payload?.message) {
+        setAlert(action.payload.message);
+      } else {
+        setAlert("Sign Up was successful");
+        console.log(alert);
+      }
+    });
   };
 
   const formik = useFormik({
@@ -59,6 +67,7 @@ function PartnerSignUp() {
       <SplideSlide>
         <AboutAgentForm
           formik={formik}
+          alertMessage={alert}
           handleSlideChange={() => {
             handleSlideChange(0);
           }}

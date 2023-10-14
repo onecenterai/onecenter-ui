@@ -1,4 +1,4 @@
-import { Box, Checkbox, Container, Divider, Grid, IconButton, InputAdornment, Theme, Typography } from "@mui/material";
+import { Alert, Box, Checkbox, Container, Divider, Grid, IconButton, InputAdornment, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { StyledInput } from "../../../styled-components/styledInput";
 import { StyledButton } from "../../../styled-components/styledButton";
@@ -50,8 +50,9 @@ function SignIn() {
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const loginStatus = useSelector((state: any) => state.Auth.loginStatus.status);
   const loading = useSelector((state: any) => state.Auth.loginStatus.loader);
+  const [alert, setAlert] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -65,17 +66,18 @@ function SignIn() {
     const action = await dispatch(logUser(values));
     const userToken = action?.payload?.token;
     const userRole = action?.payload?.user?.role;
-    console.log(userToken);
+
     if (userToken) {
+      console.log(userToken);
       localStorage.setItem("token", userToken);
       if (userRole === "agentadmin") {
         navigate("/upload");
       } else {
         navigate("/demo");
       }
+    } else {
+      setAlert(action.payload.message);
     }
-
-    console.log(values);
   };
 
   const validationSchema = Yup.object().shape({
@@ -127,13 +129,18 @@ function SignIn() {
               </Divider>
               <Grid container>
                 <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
-                  {loginStatus == "failed" && (
-                    <Typography variant="h6" sx={{ fontWeight: 400, color: "red" }}>
-                      Wrong email or password. Please try again.
-                    </Typography>
-                  )}
-
-                  {/* <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} /> */}
+                  {alert == "Wrong password" ? (
+                    <Alert severity="warning" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
+                      {alert}, Please try again
+                    </Alert>
+                  ) : alert == "User not found" ? (
+                    <Alert severity="warning" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
+                      {alert},{" "}
+                      <Link to="/signup" style={{ textDecoration: "underline", color: "#3A49F9" }}>
+                        Sign up
+                      </Link>
+                    </Alert>
+                  ) : null}
                 </Grid>
                 <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
                   {errors.email && touched.email ? (

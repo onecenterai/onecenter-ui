@@ -4,6 +4,9 @@ import axios from "axios";
 const initialState = {
   userDetails: {},
   loginStatus: {
+    loader: false,
+  },
+  signupStatus: {
     status: "idle",
     loader: false,
   },
@@ -23,9 +26,8 @@ export const logUser = createAsyncThunk("log/user", async (credentials: {}) => {
 
       return data;
     }
-  } catch (error) {
-    console.log("Error while trying to login: ", error);
-    throw error;
+  } catch (error: any) {
+    return error.response.data;
   }
 });
 export const registerPartner = createAsyncThunk("register/user", async (credentials: {}) => {
@@ -40,9 +42,8 @@ export const registerPartner = createAsyncThunk("register/user", async (credenti
       console.log("successful", response.data);
       return response.data;
     }
-  } catch (error) {
-    console.log("Error while trying to register: ", error);
-    throw error;
+  } catch (error: any) {
+    return error.response.data;
   }
 });
 export const registerUser = createAsyncThunk("register/user", async (credentials: {}) => {
@@ -57,9 +58,8 @@ export const registerUser = createAsyncThunk("register/user", async (credentials
       console.log("successful", response.data);
       return response.data;
     }
-  } catch (error) {
-    console.log("Error while trying to login: ", error);
-    throw error;
+  } catch (error: any) {
+    return error.response.data;
   }
 });
 export const AuthSlice = createSlice({
@@ -82,11 +82,15 @@ export const AuthSlice = createSlice({
       state.loginStatus.loader = false;
       console.log("error, possibly, does not exist");
     });
-    builder.addCase(registerUser.fulfilled, () => {
-      console.log("sign up completed");
+    builder.addCase(registerUser.pending, (state: any) => {
+      state.loginStatus.loader = true;
     });
-    builder.addCase(registerUser.rejected, () => {
+    builder.addCase(registerUser.fulfilled, (state) => {
+      state.loginStatus.loader = false;
+    });
+    builder.addCase(registerUser.rejected, (state) => {
       console.log("sign up failed");
+      state.loginStatus.loader = false;
     });
   },
 });

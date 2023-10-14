@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, IconButton, InputAdornment, Typography } from "@mui/material";
+import { Alert, Box, Checkbox, Grid, IconButton, InputAdornment, Typography } from "@mui/material";
 import { StyledButton } from "../../../../styled-components/styledButton";
 import { StyledInput } from "../../../../styled-components/styledInput";
 import { useFormik } from "formik";
@@ -7,13 +7,17 @@ import { registerUser } from "../../../../slices/AuthSlice";
 import { AppDispatch } from "../../../../store";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function UserSignUp() {
   const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const [alert, setAlert] = useState("");
   const onSubmit = (values: {}) => {
-    dispatch(registerUser(values));
+    dispatch(registerUser(values)).then((action) => {
+      setAlert(action.payload.message);
+    });
   };
   const initialValues = {
     email: "",
@@ -28,22 +32,32 @@ function UserSignUp() {
   return (
     <Grid container>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
+        {alert && (
+          <Alert severity="success" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
+            {alert},{" "}
+            <Link to="/signin" style={{ textDecoration: "underline", color: "#3A49F9" }}>
+              Sign in
+            </Link>
+          </Alert>
+        )}
+      </Grid>
+      <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Name
         </Typography>
-        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("name")} />
+        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("name")} required />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Email Address
         </Typography>
-        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
+        <StyledInput aria-required variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Phone No.
         </Typography>
-        <StyledInput variant="outlined" type="number" color="primary" fullWidth {...formik.getFieldProps("phone")} />
+        <StyledInput aria-required variant="outlined" type="number" color="primary" fullWidth {...formik.getFieldProps("phone")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Box className="justify-space-btw">
@@ -52,6 +66,7 @@ function UserSignUp() {
           </Typography>
         </Box>
         <StyledInput
+          aria-required
           variant="outlined"
           color="primary"
           fullWidth
@@ -87,8 +102,11 @@ function UserSignUp() {
         </StyledButton>
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
-        <Typography variant="h6" color="info" sx={{ fontWeight: 300 }}>
-          Have an account? Sign In
+        <Typography variant="h6" color="info" sx={{ fontWeight: 400 }}>
+          Have an account?{" "}
+          <Link to="/signin" style={{ textDecoration: "underline", color: "#3A49F9", fontWeight: 600 }}>
+            Sign In
+          </Link>
         </Typography>
       </Grid>
     </Grid>

@@ -5,8 +5,8 @@ const initialState = {
   resources: [],
   postManualStatus: "idle",
 };
-
 const token = localStorage.getItem("token");
+
 export const postManual = createAsyncThunk("manualurl/post", async (values: {}) => {
   try {
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/resource`, values, {
@@ -62,9 +62,11 @@ export const deleteManual = createAsyncThunk("manualurl/delete", async (id: stri
 
 export const getManuals = createAsyncThunk("manuals/get", async () => {
   try {
-    console.log(`Bearer ${token}`);
+    const token = localStorage.getItem("token");
+
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/resources`, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
         "Bypass-Tunnel-Reminder": "Bypass-Tunnel-Reminder",
       },
