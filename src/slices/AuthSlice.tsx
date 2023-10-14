@@ -13,6 +13,7 @@ export const logUser = createAsyncThunk("log/user", async (credentials: {}) => {
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, credentials, {
       headers: {
         "Content-Type": "application/json",
+        "Bypass-Tunnel-Reminder": "Bypass-Tunnel-Reminder",
       },
     });
     if (response.status >= 200 && response.status < 300) {

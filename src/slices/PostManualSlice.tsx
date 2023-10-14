@@ -5,9 +5,10 @@ const initialState = {
   resources: [],
   postManualStatus: "idle",
 };
+
+const token = localStorage.getItem("token");
 export const postManual = createAsyncThunk("manualurl/post", async (values: {}) => {
   try {
-    const token = sessionStorage.getItem("token");
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/resource`, values, {
       headers: {
         "Content-Type": "application/json",
@@ -25,8 +26,6 @@ export const postManual = createAsyncThunk("manualurl/post", async (values: {}) 
 });
 export const trainManual = createAsyncThunk("manualurl/train", async (id: string | number) => {
   try {
-    const token = sessionStorage.getItem("token");
-
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/resource/${id}/train`, id, {
       headers: {
         "Content-Type": "application/json",
@@ -45,8 +44,6 @@ export const trainManual = createAsyncThunk("manualurl/train", async (id: string
 });
 export const deleteManual = createAsyncThunk("manualurl/delete", async (id: string | number) => {
   try {
-    const token = sessionStorage.getItem("token");
-
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/resource/${id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -65,14 +62,14 @@ export const deleteManual = createAsyncThunk("manualurl/delete", async (id: stri
 
 export const getManuals = createAsyncThunk("manuals/get", async () => {
   try {
-    const token = sessionStorage.getItem("token");
-
+    console.log(`Bearer ${token}`);
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/resources`, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Bypass-Tunnel-Reminder": "Bypass-Tunnel-Reminder",
       },
     });
-    sessionStorage.setItem("resources", JSON.stringify(response.data));
+    localStorage.setItem("resources", JSON.stringify(response.data));
     return response.data;
   } catch (error) {
     console.log(error);

@@ -6,7 +6,7 @@ const initialState = {
 };
 export const uploadFile = createAsyncThunk("upload/file", async (file: File) => {
   console.log(file);
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   console.log(`Bearer ${token}`);
   try {
     const formData = new FormData();

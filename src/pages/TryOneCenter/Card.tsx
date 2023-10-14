@@ -8,12 +8,33 @@ import { Edit } from "@mui/icons-material";
 const useStyles = makeStyles((theme: Theme) => {
   return {
     paper: {
-      height: "40vh",
-      boxShadow: "rgba(100, 100, 111, 0.2) 0px 10px 29px 0px !important",
-      // backgroundColor: `#f1f1f1 !important`,
+      padding: "2rem 0rem",
+      height: "33rem",
+      // backgroundColor: `#eff2f6 !important`,
+      boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px !Important",
       width: "100%",
       borderRadius: "2rem !important",
-      position: "relative",
+    },
+    iconContainer: {
+      height: "7rem",
+      width: "7rem",
+      borderRadius: "50%",
+      backgroundColor: "white",
+      padding: "0.5rem",
+    },
+    h4: {
+      color: "#1f1f1f",
+      fontWeight: "700",
+      fontSize: "1rem",
+    },
+
+    pill: {
+      backgroundColor: "rgba(58,73,249, .1)",
+      border: `1px solid ${theme.palette.primary.main}`,
+      borderRadius: "2rem",
+      color: "black",
+      width: "fit-content",
+      padding: ".2rem 1.5rem",
     },
   };
 });
@@ -31,94 +52,44 @@ function Card() {
   const classes = useStyles();
   return (
     <Grid item md={4}>
-      <Paper elevation={2} className={classes.paper}>
-        <Box sx={{ height: "40%", backgroundImage: "url('./images/schoola.png')", backgroundPositionY: "30%", backgroundSize: "100%", backgroundRepeat: "no-repeat" }}></Box>
-        <Divider />
-        <img
-          src="./images/schoola.png"
-          className="logoContainer"
-          style={{
-            height: "10rem",
-            width: "10rem",
-            position: "absolute",
-            border: ".4rem solid #3A49F9",
-            bottom: "49%",
-            left: "3%",
-            objectFit: "contain",
-            backgroundColor: "#f1f1f1",
-            borderRadius: "50%",
-          }}
-        />
-        <Box sx={{ height: "60%" }}>
-          <Container sx={{ padding: "2rem 0rem" }}>
-            <Box>
-              <Grid container sx={{ position: "relative" }}>
-                <Grid item md={3}></Grid>
-                <Grid item md={5}>
-                  <Typography variant="h4">Schoola</Typography>
-                  <Typography variant="h6" sx={{ padding: ".5rem 0rem", color: "#636A7C" }}>
-                    EdTech
+      <Paper elevation={0} className={classes.paper}>
+        <Container sx={{ height: "100%" }}>
+          <Grid container className="center-space-btw" sx={{ height: "100%" }}>
+            <Grid item md={12} className="center-space-btw">
+              <Box className="center-center" sx={{ gap: "1rem" }}>
+                <Box className={`${classes.iconContainer} center-center`}>
+                  <img src="./images/schoola.png" alt="" className="partnerImage" style={{ width: "100%", objectFit: "cover", objectPosition: "center" }} />
+                </Box>
+                <Box>
+                  <Typography variant="h5" className={classes.h4} textAlign="left">
+                    Schoola App
                   </Typography>
-                  {/* <Pill categoryColor={"rgb(13, 91, 225)"} categorybgColor={"rgba(13, 91, 225,0.1)"} category={userData.category} /> */}
-                  {/* <Typography
-                    variant="h6"
-                    sx={{ fontSize: "1.1rem", fontWeight: "400", backgroundColor: "#eff2f6", width: "fit-content", color: "black", padding: "0.5rem 1.5rem", borderRadius: "1rem" }}
-                  >
-                    {userData.address}
-                  </Typography> */}
-                </Grid>
-                <Grid item md={4} sx={{ display: "flex", justifyContent: "flex-end", height: "fit-content" }}>
-                  <StyledButton variant="outlined" sx={{ padding: "0.2rem .5rem", borderColor: "#0000001f", color: "black" }} fullWidth>
-                    Call Schoola
-                  </StyledButton>
-                </Grid>
-                <Grid item md={12}>
-                  <Typography variant="h6" sx={{ backgroundColor: "#eff2f6", width: "fit-content", color: "black", padding: "0.5rem 1.5rem", borderRadius: "1rem" }}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, iure dicta animi esse ullam ipsam id repudiandae in impedit? Expedita?
+                  <Typography variant="h6" className={classes.h6} textAlign="left">
+                    schoola.app
                   </Typography>
-                </Grid>
-              </Grid>
-              <Grid container sx={{ padding: "2rem 0rem" }}>
-                <Grid item md={3}></Grid>
-                <Grid item md={6}>
-                  <Box className="flex" sx={{ gap: "1rem" }}>
-                    {/* <IconContainer img="./icons/mail.png" />
-                      <IconContainer img="./icons/instagram.png" />
-                      <IconContainer img="./icons/mail.png" />
-                      <IconContainer img="./icons/mail.png" /> */}
-                  </Box>
-                </Grid>
-                <Grid item md={3} sx={{ display: "flex", justifyContent: "flex-end", height: "fit-content" }}>
-                  {/* <IconContainer img="./icons/save.png" /> */}
-                </Grid>
-              </Grid>
-            </Box>
-          </Container>
-        </Box>
-        {/* <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-around", height: "90%" }}>
-          <img src="./images/schoola.png" style={{ width: "90%", height: "fit-content", margin: "0 auto", position: "relative", bottom: "2rem" }} alt="" />
-          <Box sx={{ display: "flex", justifyContent: "space-around", flexDirection: "column", height: "100%" }}>
-            <Box>
-              <Typography variant="body2" color="primary">
-                Schoola App
-              </Typography>
-              <Typography variant="body1" sx={{ fontWeight: 300 }} color="error">
-                Gamified Learning App
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <Typography variant="h5">Call Schoola</Typography>
-              <Box
-                sx={{ border: "1px solid #111928", borderRadius: "50%", height: "3.5rem", width: "3.5rem", padding: ".5rem", display: "flex", alignItems: "center", justifyContent: "center" }}
-                // onClick={() => {
-                //   makeCall("+16189238685");
-                // }}
-              >
-                <img src="./icons/telephone.png" style={{ width: "2rem" }} alt="" />
+                </Box>
               </Box>
-            </Box>
-          </Box>
-        </Container> */}
+              <Box>
+                <Typography variant="h6" className={classes.pill} sx={{ color: "black" }} textAlign="left">
+                  EdTech
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item md={12}>
+              <Typography variant="h6" sx={{ backgroundColor: "white", padding: "2rem 1rem", borderRadius: "1rem" }}>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea soluta reprehenderit consequatur veritatis inventore molestiae eligendi voluptatibus numquam eum eos!
+              </Typography>
+            </Grid>
+            <Grid item md={12} className="center-space-btw">
+              <StyledButton variant="contained" color="primary">
+                Call Schoola
+              </StyledButton>
+              <StyledButton variant="outlined" color="primary">
+                More Info
+              </StyledButton>
+            </Grid>
+          </Grid>
+        </Container>
       </Paper>
     </Grid>
   );
