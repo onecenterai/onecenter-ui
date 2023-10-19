@@ -9,25 +9,26 @@ function AboutCompanyForm({ handleSlideChange, formik }: any) {
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Company Name
         </Typography>
-        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("name")} />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("name")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Company Email Address
         </Typography>
-        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Company Phone
         </Typography>
-        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("phone")} />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("phone")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Company Logo
         </Typography>
         <StyledInput
+          required={true}
           variant="outlined"
           color="primary"
           // type="file"
@@ -42,13 +43,13 @@ function AboutCompanyForm({ handleSlideChange, formik }: any) {
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Company Website
         </Typography>
-        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("website")} />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("website")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Company Physical Address
         </Typography>
-        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("address")} />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("address")} />
       </Grid>
 
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>

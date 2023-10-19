@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@mui/material";
 import theme from "./assets/theme";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./app.css";
 import Home from "./pages/Home/Home";
@@ -15,8 +15,21 @@ import SignIn from "./pages/AuthUi/SignIn/SignIn";
 import Signup from "./pages/AuthUi/SignUp/Signup";
 import UploadResource from "./pages/Dashboard/UploadResource";
 import Resources from "./pages/Dashboard/Resources/Resources";
+import Agents from "./pages/Dashboard/Agents/Agents";
+import { useEffect } from "react";
+import PartnerOverview from "./pages/Dashboard/PartnerOverview/PartnerOverview";
+import PartnerInfo from "./pages/TryOneCenter/PartnerInfo";
+
 function App() {
   const location = useLocation();
+  const userToken = localStorage?.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userToken) {
+      navigate("/");
+    }
+  }, []);
   return (
     <SipProvider
       host="sip.onsip.com"
@@ -38,15 +51,21 @@ function App() {
               <MobileNavbar />
             </>
           ) : null}
-          <Caller />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/demo" element={<Demo />} />
+            <Route path="/tryonecenter" element={<Demo />} />
             <Route path="/company" element={<Company />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/upload" element={<UploadResource />} />
-            <Route path="/resources" element={<Resources />} />
+            {userToken ? (
+              <>
+                <Route path="/upload" element={<UploadResource />} />
+                <Route path="/resources" element={<Resources />} />
+                <Route path="/agents" element={<Agents />} />
+                <Route path="/overview" element={<PartnerOverview />} />
+                <Route path="/tryonecenter/:id" element={<PartnerInfo />} />
+              </>
+            ) : null}
           </Routes>
         </ThemeProvider>
       </Provider>

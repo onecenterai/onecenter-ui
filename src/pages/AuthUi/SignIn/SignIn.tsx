@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import { WaveLoader } from "react-loaders-kit";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
+import { getPartner } from "../../../slices/PartnerSlice";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -66,14 +67,18 @@ function SignIn() {
     const action = await dispatch(logUser(values));
     const userToken = action?.payload?.token;
     const userRole = action?.payload?.user?.role;
+    const data = action?.payload;
 
     if (userToken) {
       console.log(userToken);
+      console.log(data);
       localStorage.setItem("token", userToken);
       if (userRole === "agentadmin") {
-        navigate("/upload");
+        dispatch(getPartner(data.user.agent.partner_id));
+        console.log(data);
+        navigate("/overview");
       } else {
-        navigate("/demo");
+        navigate("/tryonecenter");
       }
     } else {
       setAlert(action.payload.message);
@@ -151,7 +156,7 @@ function SignIn() {
                   <Typography variant="h6" sx={{ fontWeight: 300 }}>
                     Email Address
                   </Typography>
-                  <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
+                  <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
                 </Grid>
                 <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
                   <Box className="justify-space-btw">
@@ -164,6 +169,7 @@ function SignIn() {
                     </Typography>
                   </Box>
                   <StyledInput
+                    required={true}
                     variant="outlined"
                     color="primary"
                     fullWidth

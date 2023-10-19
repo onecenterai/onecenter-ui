@@ -1,8 +1,30 @@
 import { useRef, useState, useEffect } from "react";
 import { engageDigitalClickToCallConfiguration } from "./engageDigitalClickToCallConfigration";
-import { AppBar, Button, Grid, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, Container, Grid, Modal, Toolbar, Typography } from "@mui/material";
+import Caller from "../Caller";
+import Card from "../../pages/TryOneCenter/Card";
+import SignIn from "../../pages/AuthUi/SignIn/SignIn";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getPartners } from "../../slices/PartnerSlice";
+import { useDispatch } from "react-redux";
 
-function EngageCall() {
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  height: 400,
+  flexDirection: "column",
+  bgcolor: "background.paper",
+  border: "0",
+  borderRadius: "1rem",
+  boxShadow: 24,
+  p: 4,
+};
+
+function EngageCall({ partnerId, partner }) {
   const [remoteStream, _setRemoteStream] = useState(null);
   const remoteStreamRefApp = useRef(remoteStream);
   const [localStream, _setLocalStream] = useState(null);
@@ -17,11 +39,19 @@ function EngageCall() {
   let engageDigitalClient;
   let engageDigitalSession;
 
+  let userToken = localStorage.getItem("token");
+  let userId = JSON.parse(localStorage.getItem("data"))?.user?.id;
+  const [open, setOpen] = useState(false);
+  const handleModalOpen = () => setOpen(true);
+  const handleModalClose = () => setOpen(false);
+
   function connectToEngageDigital() {
     const engageDomain = engageDigitalClickToCallConfiguration.domain;
 
     if (isEngageDigitalSdkLoaded) {
-      const userIdentity = "6_5";
+      console.log("Partner ID:", partnerId);
+      const userIdentity = `${userId}_${partnerId}`;
+      console.log("SIP Identity:", userIdentity);
 
       const config = {
         log: {
@@ -34,7 +64,6 @@ function EngageCall() {
       setEngageDigital(engageDigitalClient);
       registerForEngageDigitalClientEvents();
     } else {
-      //Only load for the first time
       loadEngageDigitalSDK(engageDomain);
     }
   }
@@ -123,19 +152,23 @@ function EngageCall() {
 
   function makeCall() {
     const callToNum = engageDigitalClickToCallConfiguration.callToNum;
-    try {
-      if (engageDigital) {
-        engageDigital.makeCall(callToNum, {
-          mediaConstraints: {
-            audio: true,
-            video: engageDigitalClickToCallConfiguration.callType === "video" ? true : false,
-          },
-          joinWithVideoMuted: engageDigitalClickToCallConfiguration.joinWithVideoMuted,
-        });
+    if (userToken) {
+      try {
+        if (engageDigital) {
+          engageDigital.makeCall(callToNum, {
+            mediaConstraints: {
+              audio: true,
+              video: engageDigitalClickToCallConfiguration.callType === "video" ? true : false,
+            },
+            joinWithVideoMuted: engageDigitalClickToCallConfiguration.joinWithVideoMuted,
+          });
+        }
+      } catch (error) {
+        updateStatus("Call: Provide valid phone number");
+        console.log("Error in make call : " + error);
       }
-    } catch (error) {
-      updateStatus("Call: Provide valid phone number");
-      console.log("Error in make call : " + error);
+    } else {
+      handleModalOpen();
     }
   }
 
@@ -156,17 +189,17 @@ function EngageCall() {
      * Can play some media file indicates call is ringing state
      */
     engageDigitalSession.addEventHandler("ringing", () => {
-      updateStatus("Call: Ringing");
+      updateStatus(" Ringing");
     });
 
     engageDigitalSession.addEventHandler("connecting", () => {
-      updateStatus("Call: connecting");
+      updateStatus("Connecting");
     });
     /**
      * Call is connected, can use this event to update the status of call in UI
      */
     engageDigitalSession.addEventHandler("connected", () => {
-      updateStatus("Call: Connected");
+      updateStatus("Connected");
     });
 
     /**
@@ -317,31 +350,28 @@ function EngageCall() {
 
   useEffect(() => {
     connectToEngageDigital();
-    //eslint-disable-next-line
   }, []);
-
   return (
     <div className="App">
-      <AppBar position="fixed" color="inherit">
-        <Toolbar className="toolbar">
-          {/* <a href="https://www.radisys.com" rel="noopener noreferrer" target="_blank">
+      <AppBar position="fixed" color="inherit" sx={{ display: "none" }}>
+        {/* <Toolbar className="toolbar"> */}
+        {/* <a href="https://www.radisys.com" rel="noopener noreferrer" target="_blank">
             <img src={logo} className="logo" alt="logo" />
           </a> */}
 
-          <div className="maintitle">Click-to-Call Demo Application</div>
+        <div className="maintitle">Click-to-Call Demo Application</div>
 
-          <div>
-            {session?._sessionState !== "connected" || session === null ? (
-              <Button disabled={callButtonStatus === false} className="call" onClick={() => makeCall()} color="primary" variant="contained" size="small">
-                Call
-              </Button>
-            ) : (
-              <Button className="endCall" onClick={() => disconnectCall()} color="secondary" variant="contained" size="small">
-                EndCall
-              </Button>
-            )}
-          </div>
-        </Toolbar>
+        <div>
+          {session?._sessionState !== "connected" || session === null ? (
+            <Button disabled={callButtonStatus === false} className="call" onClick={() => makeCall()} color="primary" variant="contained" size="small">
+              Call
+            </Button>
+          ) : (
+            <Button className="endCall" onClick={() => disconnectCall()} color="secondary" variant="contained" size="small">
+              EndCall
+            </Button>
+          )}
+        </div>
       </AppBar>
 
       <div style={{ width: "100%" }}>
@@ -353,56 +383,21 @@ function EngageCall() {
             alignItems: "center",
             display: "flex",
             flexDirection: "column",
-            background: "#282c34",
+            background: "transparent",
+            height: "0px",
           }}
         >
-          <div style={{ marginTop: "15vh" }}>
-            <div style={{ color: "white", fontFamily: "1.3em" }}>{info}</div>
-          </div>
           <Grid justifyContent="center" item xs={3} sm={3} md={3} style={{ marginTop: "15vh", display: "flex", flexDirection: "row" }}>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "5vh" }}>
-              <div
-                style={{
-                  display: "flex",
-                  fontSize: "4vh",
-                  position: "absolute",
-                  color: "black",
-                  opacity: "0.1",
+              <Caller
+                logo={partner.logo}
+                info={info}
+                callerDisplay={info == "Connecting" || info == "Connected" || info == "Ringing" ? false : true}
+                handleCallDisconnect={() => {
+                  disconnectCall();
                 }}
-              >
-                Local Video
-              </div>
-              <video
-                ref={localStreamRef}
-                id="localStream"
-                style={{
-                  objectFit: "contain",
-                  minHeight: "40vh",
-                  minWidth: "78%",
-                  maxHeight: "38vh",
-                  justifyContent: "center",
-                  background: "rgb(241, 239, 239)",
-                  marginBottom: "5vh",
-                }}
-                autoPlay
-                loop
-                muted
-                playsInline
-              ></video>
-            </div>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "5vh" }}>
-              <div
-                style={{
-                  display: "flex",
-                  fontSize: "4vh",
-                  position: "absolute",
-                  color: "black",
-                  opacity: "0.1",
-                }}
-              >
-                Remote Video
-              </div>
-              <video
+              />
+              <audio
                 ref={remoteStreamRef}
                 autoPlay
                 loop
@@ -416,11 +411,45 @@ function EngageCall() {
                   justifyContent: "center",
                   background: "rgb(241, 239, 239)",
                   marginBottom: "5vh",
+                  display: "none",
                 }}
-              ></video>
+              ></audio>
             </div>
           </Grid>
         </Grid>
+        <Container className="center-center" sx={{ height: "50rem !important" }}>
+          <Card
+            iconContainerWidth={"10rem"}
+            name={partner.name}
+            website={partner.website}
+            description={partner.description}
+            logo={partner.logo}
+            category={partner.category}
+            primaryBtn={`call ${partner.name ? partner.name : ""}`}
+            primaryFunc={() => {
+              makeCall();
+            }}
+            btnDisable={callButtonStatus === false}
+          />
+        </Container>
+        <Modal open={open} onClose={handleModalClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+          <Box sx={style} className="center-center">
+            <Typography variant="h5" align="center">
+              Oops, you need to{" "}
+              <Link to="/signin" style={{ color: "#0070ff", fontWeight: 600 }}>
+                sign-in
+              </Link>{" "}
+              to use OneCenter
+            </Typography>
+            <Typography variant="h5" align={"center"} sx={{ margin: "2rem 0rem" }}>
+              Don't have an accout? no worries, {"  "}
+              <Link to="/signup" style={{ color: "#0070ff", fontWeight: 600 }}>
+                sign-up {"  "}
+              </Link>
+              to use OneCenter
+            </Typography>
+          </Box>
+        </Modal>
       </div>
     </div>
   );

@@ -1,13 +1,13 @@
 import { Alert, Grid, IconButton, InputAdornment, Typography } from "@mui/material";
-import { StyledInput } from "../../../../styled-components/styledInput";
-import { StyledButton } from "../../../../styled-components/styledButton";
-import { ChevronLeft, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { WaveLoader } from "react-loaders-kit";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { StyledInput } from "../../../styled-components/styledInput";
+import { StyledButton } from "../../../styled-components/styledButton";
 
-function AboutAgentForm({ handleSlideChange, formik, alertMessage }: any) {
+function CreateAgentForm({ formik, alertMessage }: any) {
   const [showPassword, setShowPassword] = useState(false);
   const loading = useSelector((state: any) => state.Auth.loginStatus.loader);
   const loaderProps = {
@@ -31,24 +31,23 @@ function AboutAgentForm({ handleSlideChange, formik, alertMessage }: any) {
           ) : null}
         </Alert>
       )}
-
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Name
         </Typography>
-        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("agent.name")} />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("name")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Email Address
         </Typography>
-        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("agent.email")} />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Phone No.
         </Typography>
-        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("agent.phone")} />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("phone")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
@@ -59,7 +58,7 @@ function AboutAgentForm({ handleSlideChange, formik, alertMessage }: any) {
           variant="outlined"
           color="primary"
           fullWidth
-          {...formik.getFieldProps("agent.password")}
+          {...formik.getFieldProps("password")}
           type={showPassword ? "text" : "password"}
           InputProps={{
             endAdornment: (
@@ -72,31 +71,18 @@ function AboutAgentForm({ handleSlideChange, formik, alertMessage }: any) {
           }}
         />
       </Grid>
-      <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
-        <IconButton color="primary" sx={{ border: ".5px solid" }} onClick={handleSlideChange}>
-          <ChevronLeft sx={{ fontSize: "2rem" }} />
-        </IconButton>
-      </Grid>
 
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }} className="justify-center">
         {!loading ? (
           <StyledButton variant="contained" color="primary" fullWidth onClick={formik.handleSubmit}>
-            Complete Sign Up
+            Create Agent
           </StyledButton>
         ) : (
           <WaveLoader {...loaderProps} />
         )}
       </Grid>
-      <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
-        <Typography variant="h6" color="info" sx={{ fontWeight: 400 }}>
-          Have an account?{" "}
-          <Link to="/signin" style={{ textDecoration: "underline", color: "#3A49F9", fontWeight: 600 }}>
-            Sign In
-          </Link>
-        </Typography>
-      </Grid>
     </Grid>
   );
 }
 
-export default AboutAgentForm;
+export default CreateAgentForm;

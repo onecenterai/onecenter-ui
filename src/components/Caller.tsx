@@ -58,22 +58,25 @@ const useStyles = makeStyles((theme: Theme) => {
     },
   };
 });
-function Caller() {
+function Caller({ info, handleCallDisconnect, callerDisplay, logo }) {
   const classes = useStyles();
   const time = new Date();
-  const callerDisplay = useSelector((state: any) => state.WaitList.callerComponent);
+  // const callerDisplay = useSelector((state: any) => state.WaitList.callerComponent);
   const mic = useSelector((state: any) => state.WaitList.startMic);
   console.log(callerDisplay);
   time.setSeconds(time.getSeconds() + 30);
   return (
     <Box style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <Box className={classes.container} sx={{ top: callerDisplay ? "80px" : "-180px" }}>
+      <Box className={classes.container} sx={{ top: !callerDisplay ? "80px" : "-180px" }}>
         <Box sx={{ display: "flex", gap: "1rem", padding: "0.8rem" }}>
           <Box className={classes.calleravatar}>
-            <img src="./icons/logoicon.svg" alt="" style={{ width: "80%", objectFit: "contain" }} />
+            <img src={logo} alt="" style={{ width: "80%", objectFit: "contain" }} />
           </Box>
           <Box className={classes.callinfo}>
-            <Box className={classes.dot} sx={{ backgroundColor: "red" }}></Box>
+            <Box className={classes.dot} sx={{ backgroundColor: info == "Connected" ? "green" : "orange" }}></Box>
+            <Typography variant="h6" sx={{ color: "white", marginRight: ".2rem" }}>
+              {info}
+            </Typography>
             <Typography variant="h5" color="white">
               {mic ? (
                 <Timer
@@ -90,8 +93,8 @@ function Caller() {
         </Box>
 
         <IconButton>
-          <Box className={classes.calleravatar}>
-            <img src="./icons/telephone.png" alt="" width="60%" />
+          <Box className={classes.calleravatar} onClick={handleCallDisconnect}>
+            <img src="/icons/telephone.png" alt="" width="60%" />
           </Box>
         </IconButton>
       </Box>

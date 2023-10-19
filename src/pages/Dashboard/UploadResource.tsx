@@ -84,13 +84,13 @@ function UploadResource() {
             <Typography variant="h6" sx={{ fontWeight: 300 }}>
               Title
             </Typography>
-            <StyledInput fullWidth {...formik.getFieldProps("title")} />
+            <StyledInput required={true} fullWidth {...formik.getFieldProps("title")} />
           </Grid>
           <Grid item md={12}>
             <Typography variant="h6" sx={{ fontWeight: 300 }}>
               Description
             </Typography>
-            <StyledInput fullWidth multiline rows={3} {...formik.getFieldProps("description")} />
+            <StyledInput required={true} fullWidth multiline rows={3} {...formik.getFieldProps("description")} />
           </Grid>
           <Grid item md={12}>
             <Button sx={{ height: "20rem", width: "100%", borderRadius: "1rem", border: "1px dashed black", margin: "auto !important" }}>

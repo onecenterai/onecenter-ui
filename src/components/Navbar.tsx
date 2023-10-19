@@ -1,6 +1,11 @@
-import { Button, Container, Grid, Theme, Typography } from "@mui/material";
+import { Box, Button, Container, Fade, Grid, Popper, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { StyledButton } from "../styled-components/styledButton";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store";
+import { logOut } from "../slices/AuthSlice";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -24,14 +29,28 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 function Navbar() {
   const classes = useStyles();
+  let data = JSON?.parse(localStorage.getItem("data"))?.user;
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((previousOpen) => !previousOpen);
+  };
+
+  const canBeOpen = open && Boolean(anchorEl);
+  const id = canBeOpen ? "transition-popper" : undefined;
+
   return (
     <div className={classes.navbar}>
       <Container>
         <Grid container>
           <Grid item md={6} sx={{ display: "flex", alignItems: "center", gap: "5rem" }}>
-            <Typography color="primary" variant="h3">
-              One<span style={{ color: "black" }}>Center</span>
-            </Typography>
+            <Link to="/">
+              <Typography color="primary" variant="h3">
+                One<span style={{ color: "black" }}>Center</span>
+              </Typography>
+            </Link>
             <ul className={classes.ul}>
               <a href="#features">
                 <li>Features</li>
@@ -40,19 +59,46 @@ function Navbar() {
                 <li>Reviews</li>
               </a>
 
-              <li>Pricing</li>
-              <li></li>
+              <Link to="/">
+                <li>Pricing</li>
+              </Link>
+              <Link to="/tryonecenter">
+                <li>Try OneCenter</li>
+              </Link>
             </ul>
           </Grid>
           <Grid item md={6} sx={{ display: "flex", justifyContent: "end" }}>
             <ul className={classes.ul}>
-              <li>
+              {data ? (
+                <>
+                  <Button aria-describedby={id} onClick={handleClick} variant="text" color="secondary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
+                    Signed in as {data.name.split(" ")[0]}
+                  </Button>
+                  <Popper id={id} open={open} anchorEl={anchorEl} transition>
+                    {({ TransitionProps }) => (
+                      <Fade {...TransitionProps} timeout={350}>
+                        <StyledButton
+                          fullWidth
+                          color="error"
+                          sx={{ border: 0, p: 1, bgcolor: "background.paper", boxShadow: "rgba(100, 100, 111, 0.2) 0px 10px 29px 0px !important" }}
+                          onClick={() => {
+                            dispatch(logOut());
+                          }}
+                        >
+                          Log Out
+                        </StyledButton>
+                      </Fade>
+                    )}
+                  </Popper>
+                </>
+              ) : (
                 <Link to="/signin">
                   <Button variant="text" color="secondary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
                     Sign in
                   </Button>
                 </Link>
-              </li>
+              )}
+              <li></li>
               <li>
                 <Link to="/signup">
                   <Button variant="contained" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>

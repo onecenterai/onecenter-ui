@@ -22,6 +22,7 @@ export const logUser = createAsyncThunk("log/user", async (credentials: {}) => {
     if (response.status >= 200 && response.status < 300) {
       const data = response.data;
       console.log(data);
+      console.log(response);
       localStorage.setItem("data", JSON.stringify(data));
 
       return data;
@@ -62,6 +63,13 @@ export const registerUser = createAsyncThunk("register/user", async (credentials
     return error.response.data;
   }
 });
+
+export const logOut = createAsyncThunk("auth/logout", async () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("data");
+  localStorage.removeItem("partner");
+  window.location.href = window.location.origin;
+});
 export const AuthSlice = createSlice({
   name: "auth",
   initialState,
@@ -91,6 +99,9 @@ export const AuthSlice = createSlice({
     builder.addCase(registerUser.rejected, (state) => {
       console.log("sign up failed");
       state.loginStatus.loader = false;
+    });
+    builder.addCase(logOut.fulfilled, () => {
+      console.log("Logged Out");
     });
   },
 });

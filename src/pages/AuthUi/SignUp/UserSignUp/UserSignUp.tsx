@@ -45,19 +45,19 @@ function UserSignUp() {
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Name
         </Typography>
-        <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("name")} required />
+        <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("name")} required />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Email Address
         </Typography>
-        <StyledInput aria-required variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
+        <StyledInput required={true} aria-required variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Phone No.
         </Typography>
-        <StyledInput aria-required variant="outlined" type="number" color="primary" fullWidth {...formik.getFieldProps("phone")} />
+        <StyledInput required={true} aria-required variant="outlined" type="number" color="primary" fullWidth {...formik.getFieldProps("phone")} />
       </Grid>
       <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
         <Box className="justify-space-btw">
@@ -66,6 +66,7 @@ function UserSignUp() {
           </Typography>
         </Box>
         <StyledInput
+          required={true}
           aria-required
           variant="outlined"
           color="primary"

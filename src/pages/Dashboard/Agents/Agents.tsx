@@ -1,6 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 import Layout from "../layout/Layout";
-import { Container, IconButton, Menu, MenuItem, Table, TableBody, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
+import { Box, Container, IconButton, Menu, MenuItem, Modal, Table, TableBody, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { deleteManual, getManuals, trainManual } from "../../../slices/PostManualSlice";
 import { useDispatch } from "react-redux";
@@ -8,12 +8,19 @@ import { AppDispatch } from "../../../store";
 import { StyledTableCell, StyledTableRow } from "../../../styled-components/styledTable";
 import { Delete, Info, MoreHorizRounded, PlayLesson } from "@mui/icons-material";
 import BasicModal from "../../../components/Modal";
+import { deleteAgent, getAgents } from "../../../slices/AgentsSlice";
+import { StyledButton } from "../../../styled-components/styledButton";
+import AddAgentModal from "./AddAgentModal";
 
-function Resources() {
+function Agents() {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(getManuals());
+    dispatch(getAgents());
   }, []);
+
+  const [openAgentModal, setOpenAgentModal] = useState(false);
+  const handleNewAgentModalOpen = () => setOpenAgentModal(true);
+  const handleNewAgentModalClose = () => setOpenAgentModal(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -34,28 +41,37 @@ function Resources() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const resources = useSelector((state: any) => state.Manuals.resources);
+  const agents = useSelector((state: any) => state.Agents.agents);
+  console.log(agents);
 
   return (
     <Layout>
       <Container>
+        <StyledButton variant="contained" sx={{ margin: "0rem 0rem 2rem 0rem" }} onClick={handleNewAgentModalOpen}>
+          Create New Agent
+        </StyledButton>
         <TableContainer>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
-                <StyledTableCell>Title</StyledTableCell>
-                <StyledTableCell>Description</StyledTableCell>
-                <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell>Id</StyledTableCell>
+                <StyledTableCell>Name</StyledTableCell>
+                <StyledTableCell>Phone No.</StyledTableCell>
+                <StyledTableCell>Email</StyledTableCell>
                 <StyledTableCell>Actions</StyledTableCell>
+
+                {/* <StyledTableCell>Date Added</StyledTableCell>
+                <StyledTableCell>Date Modified</StyledTableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
-              {resources?.map((resource: any) => {
+              {agents?.map((agent: any) => {
                 return (
-                  <StyledTableRow>
-                    <StyledTableCell>{resource.title}</StyledTableCell>
-                    <StyledTableCell>{resource.description}</StyledTableCell>
-                    <StyledTableCell>{resource.training_status == null ? "Not Trained" : resource.training_status}</StyledTableCell>
+                  <StyledTableRow key={agent.id}>
+                    <StyledTableCell>{agent?.id}</StyledTableCell>
+                    <StyledTableCell>{agent?.name}</StyledTableCell>
+                    <StyledTableCell>{agent?.phone}</StyledTableCell>
+                    <StyledTableCell>{agent?.email}</StyledTableCell>
                     <StyledTableCell>
                       <div>
                         <IconButton id="basic-button" aria-controls={open ? "basic-menu" : undefined} aria-haspopup="true" aria-expanded={open ? "true" : undefined} onClick={handleClick}>
@@ -70,10 +86,10 @@ function Resources() {
                             "aria-labelledby": "basic-button",
                           }}
                         >
-                          <MenuItem
+                          {/* <MenuItem
                             // onClick={handleClose}
                             onClick={() => {
-                              dispatch(trainManual(resource.id)).then(() => {
+                              dispatch(trainManual(agent?.id)).then(() => {
                                 dispatch(getManuals()).then(() => {
                                   handleClose();
                                 });
@@ -82,23 +98,23 @@ function Resources() {
                           >
                             <PlayLesson sx={{ marginRight: ".5rem" }} />
                             Train
-                          </MenuItem>
+                          </MenuItem> */}
                           <MenuItem>
                             {" "}
                             <Info sx={{ marginRight: ".5rem" }} />
                             <BasicModal
-                              title={resource.title}
-                              description={resource.description}
-                              createdAt={new Date(resource.created_at).toLocaleString()}
-                              modifiedAt={new Date(resource.updated_at).toLocaleString()}
+                              title={agent?.name}
+                              description={agent?.email}
+                              createdAt={new Date(agent?.created_at).toLocaleString()}
+                              modifiedAt={new Date(agent?.updated_at).toLocaleString()}
                             />
                           </MenuItem>
                           <MenuItem
                             // onClick={handleClose}
                             sx={{ color: "red" }}
                             onClick={() => {
-                              dispatch(deleteManual(resource.id)).then(() => {
-                                dispatch(getManuals()).then(() => {
+                              dispatch(deleteAgent(agent?.id)).then(() => {
+                                dispatch(getAgents()).then(() => {
                                   handleClose();
                                 });
                               });
@@ -119,15 +135,17 @@ function Resources() {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={resources?.length}
+          count={agents?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+
+        <AddAgentModal handleNewAgentModalClose={handleNewAgentModalClose} openAgentModal={openAgentModal} />
       </Container>
     </Layout>
   );
 }
 
-export default Resources;
+export default Agents;

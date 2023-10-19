@@ -2,6 +2,9 @@ import { Box, MenuItem, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useLocation, useNavigate } from "react-router-dom";
 import { navigation } from "../../../data/navigation";
+import { logOut } from "../../../slices/AuthSlice";
+import { AppDispatch } from "../../../store";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -29,6 +32,7 @@ function NavTab() {
   const navigate = useNavigate();
   const classes = useStyles();
   const location = useLocation();
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <Box>
       <Box sx={{ marginTop: "5rem !important" }}>
@@ -51,7 +55,13 @@ function NavTab() {
           );
         })}
       </Box>
-      <MenuItem className={`${classes.menuItem} align-center`} sx={{ marginTop: "20rem !important" }}>
+      <MenuItem
+        className={`${classes.menuItem} align-center`}
+        sx={{ marginTop: "20rem !important" }}
+        onClick={() => {
+          dispatch(logOut());
+        }}
+      >
         <>
           <img src="./icons/logout.png" alt="log-out" style={{ height: "2rem", width: "2rem", objectFit: "contain" }} />
         </>
