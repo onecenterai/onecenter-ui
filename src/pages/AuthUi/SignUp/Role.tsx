@@ -2,6 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { StyledButton } from "../../../styled-components/styledButton";
 import { makeStyles } from "@mui/styles";
+import { DomainAdd, PersonOutline } from "@mui/icons-material";
 
 const useStyles = makeStyles(() => {
   return {
@@ -37,7 +38,7 @@ function Role({ splideRef }: any) {
             fullWidth
             variant={activeSlide == 0 ? "contained" : "outlined"}
             sx={{ fontWeight: 400, fontSize: "1.3rem" }}
-            startIcon={<img src="./icons/google.png" className={classes.icon} />}
+            startIcon={<DomainAdd />}
             onClick={() => {
               handleSlideChange(0);
             }}
@@ -51,7 +52,7 @@ function Role({ splideRef }: any) {
             fullWidth
             variant={activeSlide == 1 ? "contained" : "outlined"}
             sx={{ fontWeight: 400, fontSize: "1.3rem" }}
-            startIcon={<img src="./icons/apple-logo.png" className={classes.icon} />}
+            startIcon={<PersonOutline />}
             onClick={() => {
               handleSlideChange(1);
             }}

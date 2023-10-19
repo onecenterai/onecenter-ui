@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) => {
       borderRadius: "3rem 0rem 0rem 3rem",
     },
     textContent: {
-      backgroundColor: theme.palette.info.main,
+      backgroundColor: theme.palette.primary.main,
       padding: "2rem",
       minHeight: "93vh",
       borderRadius: "0rem 3rem 3rem 0rem",
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => {
       height: "4rem",
       width: "4rem",
       borderRadius: "50%",
-      backgroundColor: theme.palette.info.main,
+      backgroundColor: theme.palette.primary.main,
     },
     icon: {
       height: "1.5rem",
@@ -117,12 +117,26 @@ function SignIn() {
               </Box>
               <Grid container spacing={2} sx={{ padding: "2rem 0rem" }}>
                 <Grid item md={6}>
-                  <StyledButton color="primary" fullWidth variant="outlined" sx={{ fontWeight: 400, fontSize: "1rem" }} startIcon={<img src="./icons/google.png" className={classes.icon} />}>
+                  <StyledButton
+                    color="primary"
+                    fullWidth
+                    variant="outlined"
+                    sx={{ fontWeight: 400, fontSize: "1rem" }}
+                    startIcon={<img src="./icons/google.png" className={classes.icon} />}
+                    disabled={true}
+                  >
                     Sign in with Google
                   </StyledButton>
                 </Grid>
                 <Grid item md={6}>
-                  <StyledButton color="primary" fullWidth variant="outlined" sx={{ fontWeight: 400, fontSize: "1rem" }} startIcon={<img src="./icons/apple-logo.png" className={classes.icon} />}>
+                  <StyledButton
+                    color="primary"
+                    fullWidth
+                    variant="outlined"
+                    sx={{ fontWeight: 400, fontSize: "1rem" }}
+                    startIcon={<img src="./icons/apple-logo.png" className={classes.icon} />}
+                    disabled={true}
+                  >
                     Sign in with Apple
                   </StyledButton>
                 </Grid>
