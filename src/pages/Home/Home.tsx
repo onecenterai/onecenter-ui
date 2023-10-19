@@ -12,10 +12,10 @@ function Home() {
   return (
     <div>
       <HeroSection />
-      <AboutOneCenter />
+      {/* <AboutOneCenter />
       <Features />
       <Faqs />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }
