@@ -3,11 +3,6 @@ import { engageDigitalClickToCallConfiguration } from "./engageDigitalClickToCal
 import { AppBar, Box, Button, Container, Grid, Modal, Toolbar, Typography } from "@mui/material";
 import Caller from "../Caller";
 import Card from "../../pages/TryOneCenter/Card";
-import SignIn from "../../pages/AuthUi/SignIn/SignIn";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getPartners } from "../../slices/PartnerSlice";
-import { useDispatch } from "react-redux";
 
 const style = {
   position: "absolute" as "absolute",
@@ -39,11 +34,7 @@ function EngageCall({ partnerId, partner }) {
   let engageDigitalClient;
   let engageDigitalSession;
 
-  let userToken = localStorage.getItem("token");
   let userId = JSON.parse(localStorage.getItem("data"))?.user?.id;
-  const [open, setOpen] = useState(false);
-  const handleModalOpen = () => setOpen(true);
-  const handleModalClose = () => setOpen(false);
 
   function connectToEngageDigital() {
     const engageDomain = engageDigitalClickToCallConfiguration.domain;
@@ -425,31 +416,13 @@ function EngageCall({ partnerId, partner }) {
             description={partner.description}
             logo={partner.logo}
             category={partner.category}
-            primaryBtn={`call ${partner.name ? partner.name : ""}`}
+            primaryBtn={`Call ${partner.name ? partner.name : ""}`}
             primaryFunc={() => {
               makeCall();
             }}
             btnDisable={callButtonStatus === false}
           />
         </Container>
-        <Modal open={open} onClose={handleModalClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-          <Box sx={style} className="center-center">
-            <Typography variant="h5" align="center">
-              Oops, you need to{" "}
-              <Link to="/signin" style={{ color: "#0070ff", fontWeight: 600 }}>
-                sign-in
-              </Link>{" "}
-              to use OneCenter
-            </Typography>
-            <Typography variant="h5" align={"center"} sx={{ margin: "2rem 0rem" }}>
-              Don't have an accout? no worries, {"  "}
-              <Link to="/signup" style={{ color: "#0070ff", fontWeight: 600 }}>
-                sign-up {"  "}
-              </Link>
-              to use OneCenter
-            </Typography>
-          </Box>
-        </Modal>
       </div>
     </div>
   );

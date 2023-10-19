@@ -1,14 +1,28 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Modal, Typography } from "@mui/material";
 import "react-sip-phone/dist/index.css";
 import Search from "../../components/Search";
 import EngageCall from "../../components/Engage/EngageCall";
 import Card from "./Card";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getPartners } from "../../slices/PartnerSlice";
 import { AppDispatch } from "../../store";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  height: 400,
+  flexDirection: "column",
+  bgcolor: "background.paper",
+  border: "0",
+  borderRadius: "1rem",
+  boxShadow: 24,
+  p: 4,
+};
 function Demo() {
   const availablePartners = useSelector((state) => state.Partners.partners);
   localStorage.setItem("partners", JSON.stringify(availablePartners));
@@ -18,6 +32,18 @@ function Demo() {
 
     //eslint-disable-next-line
   }, []);
+  let userToken = localStorage.getItem("token");
+  const [open, setOpen] = useState(false);
+  // const handleModalOpen = () => setOpen(true);
+  const handleModalClose = () => setOpen(false);
+  const navigate = useNavigate();
+  function handlePartnerNav(partnerId) {
+    if (userToken) {
+      navigate(`/tryonecenter/${partnerId}`);
+    } else {
+      setOpen(true);
+    }
+  }
   return (
     <Box>
       <Container>
@@ -27,26 +53,48 @@ function Demo() {
           </Grid>
           {availablePartners?.map((partner) => {
             return (
-              <Grid item md={4}>
-                <Link to={`/tryonecenter/${partner.id}`}>
-                  <Card
-                    iconContainerWidth={"7rem"}
-                    name={partner.name}
-                    website={partner.website}
-                    description={partner.description}
-                    logo={partner.logo}
-                    category={partner.category}
-                    // primaryBtn={"Make Call"}
-                    // primaryFunc={() => {
-                    //   makeCall();
-                    // }}
-                    // btnDisable={callButtonStatus === false}
-                  />
-                </Link>
+              <Grid
+                item
+                md={4}
+                onClick={() => {
+                  handlePartnerNav(partner.id);
+                }}
+              >
+                <Card
+                  iconContainerWidth={"7rem"}
+                  name={partner.name}
+                  website={partner.website}
+                  description={partner.description}
+                  logo={partner.logo}
+                  category={partner.category}
+                  // primaryBtn={"Make Call"}
+                  // primaryFunc={() => {
+                  //   makeCall();
+                  // }}
+                  // btnDisable={callButtonStatus === false}
+                />
               </Grid>
             );
           })}
         </Grid>
+        <Modal open={open} onClose={handleModalClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+          <Box sx={style} className="center-center">
+            <Typography variant="h5" align="center">
+              Oops, you need to{" "}
+              <Link to="/signin" style={{ color: "#0070ff", fontWeight: 600 }}>
+                sign-in
+              </Link>{" "}
+              to use OneCenter or make a call
+            </Typography>
+            <Typography variant="h5" align={"center"} sx={{ margin: "2rem 0rem" }}>
+              Don't have an accout? no worries, {"  "}
+              <Link to="/signup" style={{ color: "#0070ff", fontWeight: 600 }}>
+                sign-up {"  "}
+              </Link>
+              to use OneCenter
+            </Typography>
+          </Box>
+        </Modal>
       </Container>
     </Box>
   );
