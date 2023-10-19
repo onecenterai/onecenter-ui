@@ -23,11 +23,11 @@ const useStyles = makeStyles(() => {
   };
 });
 
-function Search() {
+function Search({ setSearchQuery }) {
   const classes = useStyles();
   return (
     <div className="center-center" style={{ gap: "1rem" }}>
-      <input type="text" className={classes.searchInput} placeholder="Search" />
+      <input type="text" className={classes.searchInput} placeholder="Search" onChange={(e) => setSearchQuery(e.target.value)} />
       <IconButton sx={{ backgroundColor: "#3A49F9", borderRadius: "1rem", height: "6rem", width: "8%", color: "white" }}>
         <SearchOffOutlined sx={{ fontSize: "3rem", verticalAlign: "center" }} />
       </IconButton>

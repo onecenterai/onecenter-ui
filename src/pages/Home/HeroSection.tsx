@@ -2,6 +2,7 @@ import { PlayArrowRounded } from "@mui/icons-material";
 import { Button, Container, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import partnerships from "../../data/partnerships.json";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -53,11 +54,11 @@ function HeroSection() {
             Most book-keeping software is accurate, but hard to use. We make the <br /> opposite trade-off, and hope you don’t get audited.
           </Typography>
           <Grid className="center-center" sx={{ gap: "2rem", padding: "2rem 0rem" }}>
-            <a href="#waitlist">
+            <Link to="/tryonecenter">
               <Button variant="contained" color="error" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
-                Get Started
+                Try OneCenter
               </Button>
-            </a>
+            </Link>
             <Button variant="outlined" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
               <PlayArrowRounded /> Watch Demo Video
             </Button>

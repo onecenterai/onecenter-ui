@@ -25,6 +25,8 @@ const style = {
 };
 function Demo() {
   const availablePartners = useSelector((state) => state.Partners.partners);
+  const [searchQuery, setSearchQuery] = useState("");
+
   localStorage.setItem("partners", JSON.stringify(availablePartners));
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
@@ -49,33 +51,38 @@ function Demo() {
       <Container>
         <Grid container spacing={5}>
           <Grid item md={12}>
-            <Search />
+            <Search setSearchQuery={setSearchQuery} />
           </Grid>
-          {availablePartners?.map((partner) => {
-            return (
-              <Grid
-                item
-                md={4}
-                onClick={() => {
-                  handlePartnerNav(partner.id);
-                }}
-              >
-                <Card
-                  iconContainerWidth={"7rem"}
-                  name={partner.name}
-                  website={partner.website}
-                  description={partner.description}
-                  logo={partner.logo}
-                  category={partner.category}
-                  // primaryBtn={"Make Call"}
-                  // primaryFunc={() => {
-                  //   makeCall();
-                  // }}
-                  // btnDisable={callButtonStatus === false}
-                />
-              </Grid>
-            );
-          })}
+          {availablePartners
+            .filter((partner) => partner.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((partner) => {
+              return (
+                <Grid
+                  item
+                  md={4}
+                  onClick={() => {
+                    handlePartnerNav(partner.id);
+                  }}
+                >
+                  <Card
+                    iconContainerWidth={"7rem"}
+                    name={partner.name}
+                    website={partner.website}
+                    description={partner.description}
+                    logo={partner.logo}
+                    category={partner.category}
+                    // primaryBtn={"Make Call"}
+                    // primaryFunc={() => {
+                    //   makeCall();
+                    // }}
+                    // btnDisable={callButtonStatus === false}
+                  />
+                </Grid>
+              );
+              // Existing code for rendering partners
+            })}
+
+          {/* {availablePartners?.map((partner) => {})} */}
         </Grid>
         <Modal open={open} onClose={handleModalClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
           <Box sx={style} className="center-center">

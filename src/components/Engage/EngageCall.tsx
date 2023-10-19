@@ -143,23 +143,19 @@ function EngageCall({ partnerId, partner }) {
 
   function makeCall() {
     const callToNum = engageDigitalClickToCallConfiguration.callToNum;
-    if (userToken) {
-      try {
-        if (engageDigital) {
-          engageDigital.makeCall(callToNum, {
-            mediaConstraints: {
-              audio: true,
-              video: engageDigitalClickToCallConfiguration.callType === "video" ? true : false,
-            },
-            joinWithVideoMuted: engageDigitalClickToCallConfiguration.joinWithVideoMuted,
-          });
-        }
-      } catch (error) {
-        updateStatus("Call: Provide valid phone number");
-        console.log("Error in make call : " + error);
+    try {
+      if (engageDigital) {
+        engageDigital.makeCall(callToNum, {
+          mediaConstraints: {
+            audio: true,
+            video: engageDigitalClickToCallConfiguration.callType === "video" ? true : false,
+          },
+          joinWithVideoMuted: engageDigitalClickToCallConfiguration.joinWithVideoMuted,
+        });
       }
-    } else {
-      handleModalOpen();
+    } catch (error) {
+      updateStatus("Call: Provide valid phone number");
+      console.log("Error in make call : " + error);
     }
   }
 
