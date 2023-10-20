@@ -58,7 +58,14 @@ const useStyles = makeStyles((theme: Theme) => {
     },
   };
 });
-function Caller({ info, handleCallDisconnect, callerDisplay, logo }) {
+
+interface callProps {
+  info: string;
+  handleCallDisconnect: () => void;
+  callerDisplay: boolean;
+  logo: string;
+}
+function Caller({ info, handleCallDisconnect, callerDisplay, logo }: callProps) {
   const classes = useStyles();
   const time = new Date();
   // const callerDisplay = useSelector((state: any) => state.WaitList.callerComponent);

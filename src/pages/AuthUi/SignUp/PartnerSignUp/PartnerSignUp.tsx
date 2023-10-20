@@ -34,9 +34,11 @@ function PartnerSignUp() {
     dispatch(registerPartner(values)).then((action) => {
       if (action?.payload?.message) {
         setAlert(action.payload.message);
-      } else {
-        setAlert("Sign Up was successful");
+      } else if (action?.payload) {
+        setAlert("Sign up sucessful.");
         console.log(alert);
+      } else {
+        setAlert("An error occured, please try again");
       }
     });
   };

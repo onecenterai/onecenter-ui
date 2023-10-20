@@ -1,13 +1,12 @@
 import { Box, Container, Grid, Modal, Typography } from "@mui/material";
 import "react-sip-phone/dist/index.css";
 import Search from "../../components/Search";
-import EngageCall from "../../components/Engage/EngageCall";
 import Card from "./Card";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getPartners } from "../../slices/PartnerSlice";
 import { AppDispatch } from "../../store";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,7 +23,7 @@ const style = {
   p: 4,
 };
 function Demo() {
-  const availablePartners = useSelector((state) => state.Partners.partners);
+  const availablePartners = useSelector((state: any) => state.Partners.partners);
   const [searchQuery, setSearchQuery] = useState("");
 
   localStorage.setItem("partners", JSON.stringify(availablePartners));
@@ -39,7 +38,7 @@ function Demo() {
   // const handleModalOpen = () => setOpen(true);
   const handleModalClose = () => setOpen(false);
   const navigate = useNavigate();
-  function handlePartnerNav(partnerId) {
+  function handlePartnerNav(partnerId: string) {
     if (userToken) {
       navigate(`/tryonecenter/${partnerId}`);
     } else {
@@ -50,15 +49,16 @@ function Demo() {
     <Box>
       <Container>
         <Grid container spacing={5}>
-          <Grid item md={12}>
+          <Grid item md={12} sx={{ width: "100%" }}>
             <Search setSearchQuery={setSearchQuery} />
           </Grid>
           {availablePartners
-            .filter((partner) => partner.name.toLowerCase().includes(searchQuery.toLowerCase()))
-            .map((partner) => {
+            ?.filter((partner: any) => partner?.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((partner: any) => {
               return (
                 <Grid
                   item
+                  sm={6}
                   md={4}
                   onClick={() => {
                     handlePartnerNav(partner.id);
@@ -66,11 +66,11 @@ function Demo() {
                 >
                   <Card
                     iconContainerWidth={"7rem"}
-                    name={partner.name}
-                    website={partner.website}
-                    description={partner.description}
-                    logo={partner.logo}
-                    category={partner.category}
+                    name={partner?.name}
+                    website={partner?.website}
+                    description={partner?.description}
+                    logo={partner?.logo}
+                    category={partner?.category}
                     // primaryBtn={"Make Call"}
                     // primaryFunc={() => {
                     //   makeCall();

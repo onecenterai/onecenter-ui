@@ -21,18 +21,40 @@ const useStyles = makeStyles((theme: Theme) => {
       backgroundColor: "#eff2f6",
       minHeight: "100vh",
       padding: "2rem",
+      [theme.breakpoints.down("sm")]: {
+        padding: 0,
+      },
+    },
+    signInContainer: {
+      padding: "0rem 7rem !important",
+      [theme.breakpoints.down("sm")]: {
+        padding: "0rem 3rem !important",
+        display: "flex !important",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+      },
     },
     signInForm: {
       backgroundColor: "white",
       padding: "2rem",
       minHeight: "93vh",
       borderRadius: "3rem 0rem 0rem 3rem",
+      [theme.breakpoints.down("sm")]: {
+        borderRadius: "0rem 0rem 0rem 0rem",
+        minHeight: "100vh",
+      },
     },
     textContent: {
       backgroundColor: theme.palette.primary.main,
       padding: "2rem",
       minHeight: "93vh",
       borderRadius: "0rem 3rem 3rem 0rem",
+      [theme.breakpoints.down("sm")]: {
+        display: "none",
+        borderRadius: "0rem 0rem 0rem 0rem",
+      },
     },
     logoContainer: {
       height: "4rem",
@@ -105,9 +127,9 @@ function SignIn() {
     <Box className={classes.signIn}>
       <Container>
         <Grid container>
-          <Grid item md={6} className={classes.signInForm}>
+          <Grid item md={6} sm={12} xs={12} className={classes.signInForm}>
             <Box className={classes.logoContainer}></Box>
-            <Container sx={{ padding: "0rem 7rem !important" }}>
+            <Container className={classes.signInContainer}>
               <Box>
                 <Typography variant="h3">Get Started Now</Typography>
 
@@ -116,7 +138,7 @@ function SignIn() {
                 </Typography>
               </Box>
               <Grid container spacing={2} sx={{ padding: "2rem 0rem" }}>
-                <Grid item md={6}>
+                <Grid item md={6} sm={12} xs={12}>
                   <StyledButton
                     color="primary"
                     fullWidth
@@ -128,7 +150,7 @@ function SignIn() {
                     Sign in with Google
                   </StyledButton>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} sm={12} xs={12}>
                   <StyledButton
                     color="primary"
                     fullWidth
@@ -147,7 +169,7 @@ function SignIn() {
                 </Typography>
               </Divider>
               <Grid container>
-                <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
+                <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
                   {alert == "Wrong password" ? (
                     <Alert severity="warning" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
                       {alert}, Please try again
@@ -161,7 +183,7 @@ function SignIn() {
                     </Alert>
                   ) : null}
                 </Grid>
-                <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
+                <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
                   {errors.email && touched.email ? (
                     <Typography variant="h6" sx={{ fontWeight: 400, color: "red" }}>
                       {errors.email}
@@ -170,9 +192,9 @@ function SignIn() {
                   <Typography variant="h6" sx={{ fontWeight: 300 }}>
                     Email Address
                   </Typography>
-                  <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
+                  <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
                 </Grid>
-                <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
+                <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
                   <Box className="justify-space-btw">
                     <Typography variant="h6" sx={{ fontWeight: 300 }}>
                       Password
@@ -183,7 +205,6 @@ function SignIn() {
                     </Typography>
                   </Box>
                   <StyledInput
-                    required={true}
                     variant="outlined"
                     color="primary"
                     fullWidth
@@ -206,7 +227,7 @@ function SignIn() {
                     Remember Me
                   </Typography>
                 </Grid>
-                <Grid item md={12} sx={{ marginBottom: "1.5rem", display: "flex", justifyContent: "center" }}>
+                <Grid item md={12} xs={12} sm={12} sx={{ marginBottom: "1.5rem", display: "flex", justifyContent: "center" }}>
                   {!loading ? (
                     <StyledButton
                       variant="contained"
@@ -233,7 +254,7 @@ function SignIn() {
               </Grid>
             </Container>
           </Grid>
-          <Grid item md={6} className={classes.textContent}>
+          <Grid item md={6} sm={12} xs={12} className={classes.textContent}>
             <TextContent />
           </Grid>
         </Grid>

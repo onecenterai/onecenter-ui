@@ -1,20 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { StyledButton } from "../../../styled-components/styledButton";
-import { makeStyles } from "@mui/styles";
 import { DomainAdd, PersonOutline } from "@mui/icons-material";
-
-const useStyles = makeStyles(() => {
-  return {
-    icon: {
-      height: "1.5rem",
-      width: "1.5rem",
-      objectFit: "contain",
-    },
-  };
-});
 function Role({ splideRef }: any) {
-  const classes = useStyles();
   // const splideRef = useRef(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -32,7 +20,7 @@ function Role({ splideRef }: any) {
         </Typography>
       </Box>
       <Grid container spacing={2} sx={{ padding: "2rem 0rem" }}>
-        <Grid item md={6}>
+        <Grid item md={6} sm={12} xs={12}>
           <StyledButton
             color="primary"
             fullWidth
@@ -43,10 +31,10 @@ function Role({ splideRef }: any) {
               handleSlideChange(0);
             }}
           >
-            Sign Up as Partner
+            Partner Sign up
           </StyledButton>
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={6} sm={12} xs={12}>
           <StyledButton
             color="primary"
             fullWidth
@@ -57,7 +45,7 @@ function Role({ splideRef }: any) {
               handleSlideChange(1);
             }}
           >
-            Sign Up as User
+            User Sign Up
           </StyledButton>
         </Grid>
       </Grid>

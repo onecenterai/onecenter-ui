@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme: Theme) => {
   return {
     heroSection: {
       height: "90vh",
+      [theme.breakpoints.down("sm")]: {
+        marginTop: "5rem",
+      },
     },
     parentspan: {
       backgroundImage: "url('./icons/marker.svg')",
@@ -70,7 +73,7 @@ function HeroSection() {
           </Typography>
           <div className="center-center" style={{ gap: "2rem", height: "70px" }}>
             {partnerships.map((partner) => {
-              return <img src={partner.image} className={classes.partnerImage} />;
+              return <img key={partner.image} src={partner.image} className={classes.partnerImage} />;
             })}
           </div>
         </Grid>

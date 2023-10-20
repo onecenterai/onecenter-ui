@@ -1,9 +1,9 @@
+// @ts-nocheck
 import { useRef, useState, useEffect } from "react";
 import { engageDigitalClickToCallConfiguration } from "./engageDigitalClickToCallConfigration";
 import { AppBar, Box, Button, Container, Grid, Modal, Toolbar, Typography } from "@mui/material";
 import Caller from "../Caller";
 import Card from "../../pages/TryOneCenter/Card";
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -377,7 +377,7 @@ function EngageCall({ partnerId, partner }) {
           <Grid justifyContent="center" item xs={3} sm={3} md={3} style={{ marginTop: "15vh", display: "flex", flexDirection: "row" }}>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "5vh" }}>
               <Caller
-                logo={partner.logo}
+                logo={partner?.logo}
                 info={info}
                 callerDisplay={info == "Connecting" || info == "Connected" || info == "Ringing" ? false : true}
                 handleCallDisconnect={() => {
@@ -407,12 +407,12 @@ function EngageCall({ partnerId, partner }) {
         <Container className="center-center" sx={{ height: "50rem !important" }}>
           <Card
             iconContainerWidth={"10rem"}
-            name={partner.name}
-            website={partner.website}
-            description={partner.description}
-            logo={partner.logo}
-            category={partner.category}
-            primaryBtn={`Call ${partner.name ? partner.name : ""}`}
+            name={partner?.name}
+            website={partner?.website}
+            description={partner?.description}
+            logo={partner?.logo}
+            category={partner?.category}
+            primaryBtn={`Call ${partner?.name ? partner?.name : ""}`}
             primaryFunc={() => {
               makeCall();
             }}

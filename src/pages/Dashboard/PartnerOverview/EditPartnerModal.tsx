@@ -29,20 +29,20 @@ const style = {
 };
 
 interface EditPartnerModalProps {
-  handleModalClose: () => void;
+  handleModalClose?: () => void;
   open: boolean;
 }
 
-export default function EditPartnerModal({ handleModalClose, open, isSetUpComplete }: EditPartnerModalProps) {
-  const dispatch = useDispatch<AppDispatch>();
-  const partner = useSelector((state) => state.Partners.partner);
+export default function EditPartnerModal({ handleModalClose, open }: EditPartnerModalProps) {
+  const dispatch: any = useDispatch<AppDispatch>();
+  const partner = useSelector((state: any) => state.Partners.partner);
   const [loader, setLoader] = useState(false);
-  const onSubmit = (values) => {
+  const onSubmit = (values: any) => {
     console.log(values);
     setLoader(true);
     console.log(typeof values.logo);
     if (typeof values.logo == "object") {
-      dispatch(uploadFile(values?.logo)).then((action) => {
+      dispatch(uploadFile(values?.logo)).then((action: any) => {
         if (action.payload) {
           const url = action.payload.url;
           console.log(url);
@@ -134,7 +134,6 @@ export default function EditPartnerModal({ handleModalClose, open, isSetUpComple
                 </Typography>
                 <VisuallyHiddenInput
                   type="file"
-                  fullWidth
                   onChange={(event) => {
                     const file = event?.target?.files?.[0];
                     if (file) {
@@ -169,7 +168,7 @@ export default function EditPartnerModal({ handleModalClose, open, isSetUpComple
                 placeholder={partner?.description ? partner?.description : `Give a little description about ${partner?.name}, this is what users see when they want to call you.`}
                 rows={6}
                 inputProps={{
-                  maxLength: 500, // Set the maximum number of characters
+                  maxLength: 1000, // Set the maximum number of characters
                 }}
                 type="text"
                 fullWidth

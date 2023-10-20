@@ -2,22 +2,21 @@ import { Box, Container, Grid, Paper, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { phoneStore } from "react-sip-phone";
 import { StyledButton } from "../../styled-components/styledButton";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import LinesEllipsis from "react-lines-ellipsis";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
 const useStyles = makeStyles((theme: Theme) => {
   return {
     paper: {
       padding: "2rem 0rem",
-      height: "33rem",
-      boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px !Important",
+      minHeight: "33rem",
+      boxShadow: "rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px !important",
+
       width: "100%",
       borderRadius: "2rem !important",
-      transition: "all ease-in-out .2s",
+      transition: "all ease-in-out .5s !important",
       "&:hover": {
         scale: "1.02",
-        transition: "all ease-in-out .2s",
+        transition: "all ease-in-out .5s",
       },
     },
     iconContainer: {
@@ -52,19 +51,32 @@ console.log(sipAccount);
 //     sipAccount.makeCall(number);
 //   }
 // }
-function Card({ primaryBtn, website, primaryFunc, btnDisable, iconContainerWidth, description, name, logo, category }) {
+
+interface cardProps {
+  primaryBtn?: string;
+  website?: string;
+  primaryFunc?: () => void;
+  btnDisable?: boolean;
+  iconContainerWidth?: string;
+  description?: string;
+  name?: string;
+  logo?: string;
+  category?: string;
+}
+function Card({ primaryBtn, website, primaryFunc, btnDisable, iconContainerWidth, description, name, logo, category }: cardProps) {
   const classes = useStyles();
   const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
+  console.log(description);
 
   return (
     // <Grid item md={4}>
     <Paper elevation={0} className={classes.paper}>
       <Container sx={{ height: "100%" }}>
         <Grid container className="center-space-btw" sx={{ height: "100%" }}>
-          <Grid item md={12} className="center-space-btw">
+          <Grid item md={12} className="center-space-btw" sx={{ width: "100%" }}>
             <Box>
               <Box className={`${classes.iconContainer} center-center`} sx={{ width: iconContainerWidth }}>
-                <img src={logo} alt="" className="partnerImage" style={{ width: "100%", objectFit: "cover", objectPosition: "center" }} />
+                <img src={logo} alt="" className="partnerImage" style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", borderRadius: "1rem" }} />
               </Box>
               <Box>
                 <Typography variant="h3" textAlign="left">
@@ -87,7 +99,7 @@ function Card({ primaryBtn, website, primaryFunc, btnDisable, iconContainerWidth
             <Typography variant="h6" sx={{ backgroundColor: "white", padding: "2rem 1rem", borderRadius: "1rem" }}>
               {location.pathname == "/tryonecenter" ? (
                 <ResponsiveEllipsis
-                  text={description}
+                  text={description ? description : "no description"}
                   maxLine="5" // Number of lines to display
                   ellipsis="..." // Ellipsis character(s)
                   trimRight

@@ -24,7 +24,7 @@ function AboutAgentForm({ handleSlideChange, formik, alertMessage }: any) {
       {alertMessage && (
         <Alert severity="error" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
           {alertMessage}.{" "}
-          {alertMessage != "Account needs email and password" ? (
+          {alertMessage != "Account needs email and password" && alertMessage != "An error occured, please try again" ? (
             <Link to="/signin" style={{ textDecoration: "underline", color: "#3A49F9" }}>
               Sign In
             </Link>
@@ -32,25 +32,25 @@ function AboutAgentForm({ handleSlideChange, formik, alertMessage }: any) {
         </Alert>
       )}
 
-      <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
+      <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Name
         </Typography>
         <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("agent.name")} />
       </Grid>
-      <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
+      <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Email Address
         </Typography>
         <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("agent.email")} />
       </Grid>
-      <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
+      <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Phone No.
         </Typography>
         <StyledInput required={true} variant="outlined" color="primary" fullWidth {...formik.getFieldProps("agent.phone")} />
       </Grid>
-      <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
+      <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
         <Typography variant="h6" sx={{ fontWeight: 300 }}>
           Create Password
         </Typography>
@@ -78,7 +78,7 @@ function AboutAgentForm({ handleSlideChange, formik, alertMessage }: any) {
         </IconButton>
       </Grid>
 
-      <Grid item md={12} sx={{ marginBottom: "1.5rem" }} className="justify-center">
+      <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }} className="justify-center">
         {!loading ? (
           <StyledButton variant="contained" color="primary" fullWidth onClick={formik.handleSubmit}>
             Complete Sign Up

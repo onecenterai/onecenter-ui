@@ -1,7 +1,7 @@
-import { Box, Button, Container, Fade, Grid, Popper, Theme, Typography } from "@mui/material";
+import { Button, Container, Fade, Grid, Popper, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StyledButton } from "../styled-components/styledButton";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     navbar: {
       padding: "2rem 0rem",
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.down("md")]: {
         display: "none",
       },
     },
@@ -29,17 +29,25 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 function Navbar() {
   const classes = useStyles();
-  let data = JSON?.parse(localStorage.getItem("data"))?.user;
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const dispatch = useDispatch<AppDispatch>();
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
     setOpen((previousOpen) => !previousOpen);
   };
 
   const canBeOpen = open && Boolean(anchorEl);
   const id = canBeOpen ? "transition-popper" : undefined;
+  const storedData = localStorage.getItem("data");
+  let data: any;
+
+  if (storedData !== null) {
+    data = JSON.parse(storedData).user;
+  } else {
+    // Handle the case where "data" is not in localStorage or is null
+  }
 
   return (
     <div className={classes.navbar}>
@@ -76,18 +84,35 @@ function Navbar() {
                   </Button>
                   <Popper id={id} open={open} anchorEl={anchorEl} transition>
                     {({ TransitionProps }) => (
-                      <Fade {...TransitionProps} timeout={350}>
-                        <StyledButton
-                          fullWidth
-                          color="error"
-                          sx={{ border: 0, p: 1, bgcolor: "background.paper", boxShadow: "rgba(100, 100, 111, 0.2) 0px 10px 29px 0px !important" }}
-                          onClick={() => {
-                            dispatch(logOut());
-                          }}
-                        >
-                          Log Out
-                        </StyledButton>
-                      </Fade>
+                      <>
+                        <Fade {...TransitionProps} timeout={350}>
+                          <StyledButton
+                            fullWidth
+                            color="error"
+                            sx={{ border: 0, p: 1, bgcolor: "background.paper", boxShadow: "rgba(100, 100, 111, 0.2) 0px 10px 29px 0px !important" }}
+                            onClick={() => {
+                              dispatch(logOut());
+                            }}
+                          >
+                            Log Out
+                          </StyledButton>
+                        </Fade>
+                        {data.role == "agentadmin" && (
+                          <Fade {...TransitionProps} timeout={350}>
+                            <StyledButton
+                              fullWidth
+                              color="error"
+                              sx={{ border: 0, p: 1, bgcolor: "background.paper", boxShadow: "rgba(100, 100, 111, 0.2) 0px 10px 29px 0px !important" }}
+                              onClick={() => {
+                                navigate("/overview");
+                                setOpen(false);
+                              }}
+                            >
+                              Go back to dashboard
+                            </StyledButton>
+                          </Fade>
+                        )}
+                      </>
                     )}
                   </Popper>
                 </>

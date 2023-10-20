@@ -10,7 +10,7 @@ import { Delete, Info, MoreHorizRounded, PlayLesson } from "@mui/icons-material"
 import BasicModal from "../../../components/Modal";
 
 function Resources() {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch: any = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getManuals());
   }, []);

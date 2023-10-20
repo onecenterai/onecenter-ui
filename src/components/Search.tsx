@@ -1,8 +1,8 @@
 import { SearchOffOutlined } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: Theme) => {
   return {
     searchInput: {
       width: "92%",
@@ -20,15 +20,23 @@ const useStyles = makeStyles(() => {
         fontSize: "2rem",
       },
     },
+    searchContainer: {
+      [theme.breakpoints.down("md")]: {
+        marginTop: "4rem",
+      },
+    },
   };
 });
 
-function Search({ setSearchQuery }) {
+interface searchProps {
+  setSearchQuery: any;
+}
+function Search({ setSearchQuery }: searchProps) {
   const classes = useStyles();
   return (
-    <div className="center-center" style={{ gap: "1rem" }}>
+    <div className={`center-center ${classes.searchContainer}`} style={{ gap: "1rem" }}>
       <input type="text" className={classes.searchInput} placeholder="Search" onChange={(e) => setSearchQuery(e.target.value)} />
-      <IconButton sx={{ backgroundColor: "#3A49F9", borderRadius: "1rem", height: "6rem", width: "8%", color: "white" }}>
+      <IconButton sx={{ backgroundColor: "#3A49F9", borderRadius: "1rem", height: "6rem", width: "15%", color: "white" }}>
         <SearchOffOutlined sx={{ fontSize: "3rem", verticalAlign: "center" }} />
       </IconButton>
     </div>

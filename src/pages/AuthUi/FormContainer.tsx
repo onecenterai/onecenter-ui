@@ -5,6 +5,17 @@ import Role from "./SignUp/Role";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
+    container: {
+      padding: "0rem 7rem !important",
+      [theme.breakpoints.down("sm")]: {
+        padding: "0rem 3rem !important",
+        display: "flex !important",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+      },
+    },
     signUp: {
       backgroundColor: "#eff2f6",
       minHeight: "100vh",
@@ -15,12 +26,20 @@ const useStyles = makeStyles((theme: Theme) => {
       padding: "2rem",
       minHeight: "93vh",
       borderRadius: "3rem 0rem 0rem 3rem",
+      [theme.breakpoints.down("sm")]: {
+        minHeight: "100vh",
+        borderRadius: "0rem 0rem 0rem 0rem",
+      },
     },
     textContent: {
       backgroundColor: theme.palette.primary.main,
       padding: "2rem",
       minHeight: "93vh",
       borderRadius: "0rem 3rem 3rem 0rem",
+      [theme.breakpoints.down("sm")]: {
+        display: "none",
+        borderRadius: "0rem 0rem 0rem 0rem",
+      },
     },
     logoContainer: {
       height: "4rem",
@@ -43,7 +62,7 @@ function FormContainer({ children, splideRef }: any) {
         <Grid container>
           <Grid item md={6} className={classes.signUpForm}>
             <Box className={classes.logoContainer}></Box>
-            <Container sx={{ padding: "0rem 7rem !important" }}>
+            <Container className={classes.container}>
               <Role splideRef={splideRef} />
 
               {children}

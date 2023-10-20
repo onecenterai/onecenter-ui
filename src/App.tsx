@@ -1,12 +1,11 @@
 import { ThemeProvider } from "@mui/material";
 import theme from "./assets/theme";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import "./app.css";
 import Home from "./pages/Home/Home";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import Caller from "./components/Caller";
 import MobileNavbar from "./components/MobileNavbar";
 import Demo from "./pages/TryOneCenter/Demo";
 import { SipProvider } from "react-sip";

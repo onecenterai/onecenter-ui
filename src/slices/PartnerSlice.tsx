@@ -7,8 +7,6 @@ const initialState = {
   patchPartnerStatus: "idle",
 };
 
-const token = localStorage.getItem("token");
-
 export const getPartners = createAsyncThunk("partners/get", async () => {
   try {
     const token = localStorage.getItem("token");
@@ -24,7 +22,7 @@ export const getPartners = createAsyncThunk("partners/get", async () => {
     console.log(error);
   }
 });
-export const getPartner = createAsyncThunk("partner/get", async (id) => {
+export const getPartner = createAsyncThunk("partner/get", async (id: string | any) => {
   try {
     const token = localStorage.getItem("token");
 
@@ -41,25 +39,33 @@ export const getPartner = createAsyncThunk("partner/get", async (id) => {
   }
 });
 
-export const patchPartner = createAsyncThunk("partner/patch", async (values) => {
-  const id = JSON.parse(localStorage.getItem("partner")).id;
+export const patchPartner = createAsyncThunk("partner/patch", async (values: {}) => {
+  const partnerData = localStorage.getItem("partner");
   const token = localStorage.getItem("token");
 
-  console.log(id);
-  try {
-    const response = await axios.patch(`${import.meta.env.VITE_API_URL}/partner/${id}`, values, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  if (partnerData) {
+    const id = JSON.parse(partnerData).id;
 
-    if (response.status >= 200 && response.status < 300) {
-    } else {
-      console.error("Error:", response.status, response.statusText);
+    console.log(id);
+
+    try {
+      const response = await axios.patch(`${import.meta.env.VITE_API_URL}/partner/${id}`, values, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status >= 200 && response.status < 300) {
+        // Handle success if needed
+      } else {
+        console.error("Error:", response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.error("Error:", error);
+  } else {
+    console.error("Partner data not found in localStorage");
   }
 });
 

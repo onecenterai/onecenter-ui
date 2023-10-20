@@ -1,50 +1,19 @@
-import { AppBar, Box, Button, Container, Drawer, Grid, Toolbar, Typography, styled } from "@mui/material";
+import { AppBar, Box, Container, Drawer, Grid, Toolbar, Typography } from "@mui/material";
 import NavTab from "./NavTab";
 import { Link, useLocation } from "react-router-dom";
 import { ReactNode } from "react";
-import { StyledInput } from "../../../styled-components/styledInput";
 import { StyledButton } from "../../../styled-components/styledButton";
-import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store";
-import { uploadFile } from "../../../slices/UploadSlice";
-import { patchPartner } from "../../../slices/PartnerSlice";
 const drawerWidth = 240;
 
 interface LayoutProp {
   children: ReactNode;
 }
-const VisuallyHiddenInput = styled("input")({
-  opacity: 0,
-  height: "100%",
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: "100%",
-  fontWeight: 700,
-});
 
 function Layout({ children }: LayoutProp) {
   const location = useLocation();
   const storedData = localStorage.getItem("data");
   const userDetails = storedData ? JSON.parse(storedData) : null;
-  const dispatch = useDispatch<AppDispatch>();
-  const onSubmit = (values) => {
-    console.log(values);
-    dispatch(uploadFile(values.logo)).then((action) => {
-      if (action.payload) {
-        console.log(action.payload);
-      }
-    });
-  };
-  const formik = useFormik({
-    initialValues: {
-      logo: "",
-    },
-    onSubmit,
-  });
+  console.log(userDetails);
 
   return (
     <Box sx={{ backgroundColor: "primary", height: "auto" }}>
@@ -113,7 +82,7 @@ function Layout({ children }: LayoutProp) {
       >
         <Container className="align-center" sx={{ padding: "2rem 0rem", gap: ".5rem", flexWrap: "wrap" }}>
           <Box className="align-center" sx={{ gap: "1rem" }}>
-            <img src="./images/portrait3.jpg" style={{ objectFit: "cover", height: "5rem", width: "5rem" }} className="logoContainer" />
+            <img src="./icons/user.png" style={{ objectFit: "cover", height: "5rem", width: "5rem" }} className="logoContainer" />
             <Box>
               <Typography variant="h6" color="#010b13">
                 {userDetails?.user?.name}

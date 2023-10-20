@@ -1,12 +1,11 @@
 import { MouseEvent, useEffect, useState } from "react";
 import Layout from "../layout/Layout";
-import { Box, Container, IconButton, Menu, MenuItem, Modal, Table, TableBody, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
+import { Container, IconButton, Menu, MenuItem, Table, TableBody, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { useSelector } from "react-redux";
-import { deleteManual, getManuals, trainManual } from "../../../slices/PostManualSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
 import { StyledTableCell, StyledTableRow } from "../../../styled-components/styledTable";
-import { Delete, Info, MoreHorizRounded, PlayLesson } from "@mui/icons-material";
+import { Delete, Info, MoreHorizRounded } from "@mui/icons-material";
 import BasicModal from "../../../components/Modal";
 import { deleteAgent, getAgents } from "../../../slices/AgentsSlice";
 import { StyledButton } from "../../../styled-components/styledButton";

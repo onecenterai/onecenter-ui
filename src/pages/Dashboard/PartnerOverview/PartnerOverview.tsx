@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "../layout/Layout";
 import Card from "../../TryOneCenter/Card";
 import EditPartnerModal from "./EditPartnerModal";
-import { getPartner, patchPartnerIdle } from "../../../slices/PartnerSlice";
+import { getPartner } from "../../../slices/PartnerSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
 import { useSelector } from "react-redux";
@@ -10,8 +10,7 @@ import { useSelector } from "react-redux";
 function PartnerOverview() {
   const dispatch = useDispatch<AppDispatch>();
   const partnerId = JSON.parse(localStorage.getItem("data") || "null").user.agent.partner_id;
-  const partner = useSelector((state) => state.Partners.partner);
-  const patchPartnerStatus = useSelector((state) => state.Partners.patchPartnerStatus);
+  const partner = useSelector((state: any) => state.Partners.partner);
   const [open, setOpen] = useState(false);
   const handleModalOpen = () => setOpen(true);
   const handleModalClose = () => setOpen(false);
@@ -50,11 +49,12 @@ function PartnerOverview() {
             category={partner?.category}
             primaryBtn={"Edit Info"}
             primaryFunc={handleModalOpen}
+            btnDisable={false}
           />
           <EditPartnerModal handleModalClose={handleModalClose} open={open} />
         </>
       ) : (
-        <EditPartnerModal open={true} isSetUpComplete={isSetUpComplete} />
+        <EditPartnerModal open={true} />
       )}
     </Layout>
   );
