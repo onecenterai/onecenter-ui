@@ -53,9 +53,9 @@ function HeroSection() {
               <span className={classes.span}> customers.</span>
             </span>
           </Typography>
-          <Typography variant="body1" color="secondary" sx={{ textAlign: "center", padding: "4rem 0rem" }}>
+          {/* <Typography variant="body1" color="secondary" sx={{ textAlign: "center", padding: "4rem 0rem" }}>
             Most book-keeping software is accurate, but hard to use. We make the <br /> opposite trade-off, and hope you don’t get audited.
-          </Typography>
+          </Typography> */}
           <Grid className="center-center" sx={{ gap: "2rem", padding: "2rem 0rem" }}>
             <Link to="/tryonecenter">
               <Button variant="contained" color="error" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
@@ -69,7 +69,7 @@ function HeroSection() {
         </div>
         <Grid item md={12}>
           <Typography variant="body2" color="error" sx={{ textAlign: "center", fontFamily: "lexend" }}>
-            We have partnerships with three companies so far
+            We have relationship with some companies
           </Typography>
           <div className="center-center" style={{ gap: "2rem", height: "70px" }}>
             {partnerships.map((partner) => {
