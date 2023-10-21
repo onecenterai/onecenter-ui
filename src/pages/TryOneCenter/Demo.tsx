@@ -1,5 +1,4 @@
 import { Box, Container, Grid, Modal, Typography } from "@mui/material";
-import "react-sip-phone/dist/index.css";
 import Search from "../../components/Search";
 import Card from "./Card";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Paper, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { phoneStore } from "react-sip-phone";
+// import { phoneStore } from "react-sip-phone";
 import { StyledButton } from "../../styled-components/styledButton";
 import LinesEllipsis from "react-lines-ellipsis";
 import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
@@ -42,8 +42,8 @@ const useStyles = makeStyles((theme: Theme) => {
   };
 });
 
-const sipAccount = phoneStore.getState().sipAccounts.sipAccount;
-console.log(sipAccount);
+// const sipAccount = phoneStore.getState().sipAccounts.sipAccount;
+// console.log(sipAccount);
 // function makeCall(number: number) {
 //   const sipAccount = phoneStore.getState().sipAccounts.sipAccount;
 //   console.log(sipAccount);

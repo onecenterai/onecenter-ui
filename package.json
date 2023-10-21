@@ -30,7 +30,6 @@
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.14.2",
     "react-sip": "^0.8.1",
-    "react-sip-phone": "^1.0.0",
     "react-timer-hook": "^3.0.7",
     "regenerator-runtime": "^0.14.0",
     "yup": "^1.2.0"
