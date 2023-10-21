@@ -26,4 +26,4 @@ RUN npm run build
 # CMD ["nginx", "-g", "daemon off;"]
 
 EXPOSE 80
-CMD ["npm run preview"]
+CMD ["node", "-e", "npm run preview"]
