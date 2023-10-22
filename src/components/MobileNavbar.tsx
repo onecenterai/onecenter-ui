@@ -3,6 +3,9 @@ import { Button, Grid, IconButton, MenuItem, Theme, Typography } from "@mui/mate
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { logOut } from "../slices/AuthSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -29,6 +32,16 @@ const useStyles = makeStyles((theme: Theme) => {
 function MobileNavbar() {
   const classes = useStyles();
   const [showNav, setShowNav] = useState(false);
+  const storedData = localStorage.getItem("data");
+  const dispatch = useDispatch<AppDispatch>();
+
+  let data: any;
+
+  if (storedData !== null) {
+    data = JSON.parse(storedData).user;
+  } else {
+    // Handle the case where "data" is not in localStorage or is null
+  }
 
   return (
     <div className={classes.mobileNavbar}>
@@ -48,14 +61,18 @@ function MobileNavbar() {
         }}
       >
         <Grid item md={6} sx={{ display: "flex", alignItems: "center", gap: "5rem" }}>
-          <Typography color="primary" variant="h3">
-            One<span style={{ color: "black" }}>Center</span>
-          </Typography>
+          <Link to="/">
+            <Typography color="primary" variant="h3">
+              One<span style={{ color: "black" }}>Center</span>
+            </Typography>
+          </Link>
         </Grid>
         <Grid item md={6} sx={{ display: "flex", justifyContent: "end", alignItems: "center" }}>
-          <Button variant="contained" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
-            Beta Testing
-          </Button>
+          <Link to="/signup">
+            <Button variant="contained" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
+              Beta Testing
+            </Button>
+          </Link>
           <IconButton
             onClick={() => {
               setShowNav(!showNav);
@@ -149,7 +166,27 @@ function MobileNavbar() {
               setShowNav(false);
             }}
           >
-            <Link to="/signin">Sign In</Link>{" "}
+            {data ? (
+              <>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  size="large"
+                  sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}
+                  onClick={() => {
+                    dispatch(logOut());
+                  }}
+                >
+                  Signed in as {data.name.split(" ")[0]}, Log Out?
+                </Button>
+              </>
+            ) : (
+              <Link to="/signin">
+                <Button variant="contained" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
+                  Sign in
+                </Button>
+              </Link>
+            )}{" "}
           </MenuItem>
         </Grid>
       </Grid>

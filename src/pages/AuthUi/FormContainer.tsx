@@ -2,6 +2,7 @@ import { Box, Container, Grid, Theme } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import TextContent from "./TextContent";
 import Role from "./SignUp/Role";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) => {
       [theme.breakpoints.down("sm")]: {
         minHeight: "100vh",
         borderRadius: "0rem 0rem 0rem 0rem",
+        width: "100%",
       },
     },
     textContent: {
@@ -61,7 +63,9 @@ function FormContainer({ children, splideRef }: any) {
       <Container>
         <Grid container>
           <Grid item md={6} className={classes.signUpForm}>
-            <Box className={classes.logoContainer}></Box>
+            <Link to="/">
+              <Box className={classes.logoContainer}></Box>
+            </Link>
             <Container className={classes.container}>
               <Role splideRef={splideRef} />
 

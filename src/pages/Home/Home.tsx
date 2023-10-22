@@ -1,3 +1,4 @@
+import Footer from "../../components/Footer";
 import HeroSection from "./HeroSection";
 
 function Home() {
@@ -8,6 +9,7 @@ function Home() {
       <Features />
       <Faqs />
       <Footer /> */}
+      <Footer />
     </div>
   );
 }

@@ -12,6 +12,11 @@ const useStyles = makeStyles((theme: Theme) => {
         marginTop: "5rem",
       },
     },
+    heroSection_subText: {
+      [theme.breakpoints.down("sm")]: {
+        display: "none",
+      },
+    },
     parentspan: {
       backgroundImage: "url('./icons/marker.svg')",
       backgroundRepeat: "no-repeat",
@@ -53,9 +58,10 @@ function HeroSection() {
               <span className={classes.span}> customers.</span>
             </span>
           </Typography>
-          {/* <Typography variant="body1" color="secondary" sx={{ textAlign: "center", padding: "4rem 0rem" }}>
-            Most book-keeping software is accurate, but hard to use. We make the <br /> opposite trade-off, and hope you don’t get audited.
-          </Typography> */}
+          <Typography variant="body1" color="secondary" sx={{ textAlign: "center", padding: "4rem 0rem" }} className={classes.heroSection_subText}>
+            Enhancing Customer Connections with AI-Powered Care: Discover OneCenter, your key to effortless customer service. <br /> Experience the future of support with our conversational AI
+            technology, bridging the gap between organizations and their valued customers.{" "}
+          </Typography>
           <Grid className="center-center" sx={{ gap: "2rem", padding: "2rem 0rem" }}>
             <Link to="/tryonecenter">
               <Button variant="contained" color="error" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
