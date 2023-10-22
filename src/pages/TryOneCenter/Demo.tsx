@@ -103,7 +103,7 @@ function Demo() {
           </Box>
         </Modal>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 }
