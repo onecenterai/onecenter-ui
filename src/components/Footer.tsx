@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer style={{ display: "block" }}>
+    <footer style={{ display: "block", marginTop: "2rem" }}>
       <Container sx={{ display: "flex", justifyContent: "space-between", paddingTop: "2rem", paddingBottom: "2rem", borderTop: "1px solid #E5E7EB" }}>
         <Typography variant="h6" color="secondary">
           Copyright © 2023 OneCenter.ai
