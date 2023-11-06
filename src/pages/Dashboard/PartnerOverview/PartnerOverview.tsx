@@ -23,7 +23,7 @@ function PartnerOverview() {
   // Function to check if there are empty properties in the partner object, excluding 'assigned_phone'
   const hasEmptyProperties = () => {
     for (const key in partner) {
-      if (partner.hasOwnProperty(key) && key !== "assigned_phone" && !partner[key]) {
+      if (partner.hasOwnProperty(key) && key !== "assigned_phone" && key !== "corpus_id" && !partner[key]) {
         return true; // Found an empty property
       }
     }
