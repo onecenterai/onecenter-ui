@@ -85,7 +85,7 @@ function Card({ primaryBtn, website, primaryFunc, btnDisable, iconContainerWidth
                 <a href={`https://${website}`} target="_blank" rel="noopener noreferrer">
                   <Typography variant="h4" textAlign="left" color="primary">
                     <IconButton color="primary" disableRipple>
-                      <img src="/icons/link.png" style={{ width: "100%", height: "2rem", marginRight: ".5rem" }} alt="" /> {website}
+                      <img src="/icons/link.png" style={{ width: "2rem%", height: "2rem", marginRight: ".5rem", objectFit: "contain" }} alt="" /> {website}
                     </IconButton>
                   </Typography>
                 </a>
