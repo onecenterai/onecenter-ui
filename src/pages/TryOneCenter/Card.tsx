@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, Theme, Typography } from "@mui/material";
+import { Box, Container, Grid, IconButton, Paper, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 // import { phoneStore } from "react-sip-phone";
 import { StyledButton } from "../../styled-components/styledButton";
@@ -84,7 +84,9 @@ function Card({ primaryBtn, website, primaryFunc, btnDisable, iconContainerWidth
                 </Typography>
                 <a href={`https://${website}`} target="_blank" rel="noopener noreferrer">
                   <Typography variant="h4" textAlign="left" color="primary">
-                    {website}
+                    <IconButton color="primary" disableRipple>
+                      <img src="/icons/link.png" style={{ width: "100%", height: "2rem", marginRight: ".5rem" }} alt="" /> {website}
+                    </IconButton>
                   </Typography>
                 </a>
               </Box>
