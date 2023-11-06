@@ -83,7 +83,7 @@ function Card({ primaryBtn, website, primaryFunc, btnDisable, iconContainerWidth
                   {name}
                 </Typography>
                 <a href={`https://${website}`} target="_blank" rel="noopener noreferrer">
-                  <Typography variant="h4" textAlign="left">
+                  <Typography variant="h4" textAlign="left" color="primary">
                     {website}
                   </Typography>
                 </a>
