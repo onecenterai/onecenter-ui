@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { getPartners } from "../../slices/PartnerSlice";
 import { AppDispatch } from "../../store";
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../../components/Footer";
 
 const style = {
   position: "absolute" as "absolute",
