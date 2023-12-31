@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getPartners } from "../../slices/PartnerSlice";
 import { AppDispatch } from "../../store";
 import { Link, useNavigate } from "react-router-dom";
+import { WaveLoader } from "react-loaders-kit";
 
 const style = {
   position: "absolute" as "absolute",
@@ -23,8 +24,16 @@ const style = {
 };
 function Demo() {
   const availablePartners = useSelector((state: any) => state.Partners.partners);
-  const [searchQuery, setSearchQuery] = useState("");
+  const getPartnersStatus = useSelector((state: any) => state.Partners.partnersStatus);
 
+  console.log(getPartnersStatus);
+  const [searchQuery, setSearchQuery] = useState("");
+  const loaderProps = {
+    loading: getPartnersStatus != "successful" ? true : false,
+    size: 100,
+    duration: 1,
+    colors: ["#5e22f0", "#f6b93b"],
+  };
   localStorage.setItem("partners", JSON.stringify(availablePartners));
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
@@ -51,35 +60,41 @@ function Demo() {
           <Grid item md={12} sx={{ width: "100%" }}>
             <Search setSearchQuery={setSearchQuery} />
           </Grid>
-          {availablePartners
-            ?.filter((partner: any) => partner?.name.toLowerCase().includes(searchQuery.toLowerCase()))
-            .map((partner: any) => {
-              return (
-                <Grid
-                  item
-                  sm={6}
-                  md={4}
-                  onClick={() => {
-                    handlePartnerNav(partner.id);
-                  }}
-                >
-                  <Card
-                    iconContainerWidth={"7rem"}
-                    name={partner?.name}
-                    website={partner?.website}
-                    description={partner?.description}
-                    logo={partner?.logo}
-                    category={partner?.category}
-                    // primaryBtn={"Make Call"}
-                    // primaryFunc={() => {
-                    //   makeCall();
-                    // }}
-                    // btnDisable={callButtonStatus === false}
-                  />
-                </Grid>
-              );
-              // Existing code for rendering partners
-            })}
+          {availablePartners ? (
+            availablePartners
+              ?.filter((partner: any) => partner?.name.toLowerCase().includes(searchQuery.toLowerCase()))
+              .map((partner: any) => {
+                return (
+                  <Grid
+                    item
+                    sm={6}
+                    md={4}
+                    onClick={() => {
+                      handlePartnerNav(partner.id);
+                    }}
+                  >
+                    <Card
+                      iconContainerWidth={"7rem"}
+                      name={partner?.name}
+                      website={partner?.website}
+                      description={partner?.description}
+                      logo={partner?.logo}
+                      category={partner?.category}
+                      // primaryBtn={"Make Call"}
+                      // primaryFunc={() => {
+                      //   makeCall();
+                      // }}
+                      // btnDisable={callButtonStatus === false}
+                    />
+                  </Grid>
+                );
+                // Existing code for rendering partners
+              })
+          ) : (
+            <Grid md={12} sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "50vh" }}>
+              <WaveLoader {...loaderProps} />
+            </Grid>
+          )}
 
           {/* {availablePartners?.map((partner) => {})} */}
         </Grid>

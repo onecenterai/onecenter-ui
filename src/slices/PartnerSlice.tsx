@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   partners: [],
   partner: [],
+  getPartnersStatus: "idle",
   patchPartnerStatus: "idle",
 };
 
@@ -83,6 +84,15 @@ export const PartnerSlice = createSlice({
     });
     builder.addCase(getPartners.fulfilled, (state: any, action) => {
       state.partners = action.payload;
+      state.partnersStatus = "successful";
+    });
+    builder.addCase(getPartners.pending, (state: any, action) => {
+      state.partners = action.payload;
+      state.partnersStatus = "loading";
+    });
+    builder.addCase(getPartners.rejected, (state: any, action) => {
+      state.partners = action.payload;
+      state.partnersStatus = "failed";
     });
     builder.addCase(patchPartner.fulfilled, (state: any) => {
       state.patchPartnerStatus = "successful";
