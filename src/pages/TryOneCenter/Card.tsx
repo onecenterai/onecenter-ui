@@ -114,22 +114,22 @@ function Card({ primaryBtn, website, primaryFunc, btnDisable, iconContainerWidth
               )}
             </Typography>
           </Grid>
-          {/* <Grid item md={12} className="center-space-btw">
-            {primaryBtn ? (
-              <StyledButton variant="contained" color="primary" onClick={primaryFunc} disabled={btnDisable}>
-                {primaryBtn}
-              </StyledButton>
-            ) : null}
-          </Grid> */}
           <Grid item md={12} className="center-space-btw">
             {primaryBtn ? (
               <a href={`tel:${assigned_phone}`}>
-                <StyledButton variant="contained" color="primary" disabled={btnDisable}>
-                  Call {name}: {assigned_phone ? assigned_phone : "Phone not available"}
+                <StyledButton variant="contained" color="primary" onClick={primaryFunc} disabled={btnDisable}>
+                  {primaryBtn}
                 </StyledButton>
               </a>
             ) : null}
           </Grid>
+          {/* <Grid item md={12} className="center-space-btw">
+            {primaryBtn ? (
+              <StyledButton variant="contained" color="primary" disabled={btnDisable}>
+                Call {name}: {assigned_phone ? assigned_phone : "Phone not available"}
+              </StyledButton>
+            ) : null}
+          </Grid> */}
         </Grid>
       </Container>
     </Paper>
