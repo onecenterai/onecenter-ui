@@ -8,11 +8,13 @@ import { AppDispatch } from "../../../store";
 import { ValuesProps } from "./Actions";
 import { useState } from "react";
 import { WaveLoader } from "react-loaders-kit";
+import CodeEditor from "@uiw/react-textarea-code-editor";
 
 function ActionModal({ open, handleClose }: { open: boolean; handleClose: () => void }) {
   const dispatch = useDispatch<AppDispatch>();
   const [alert, setAlert] = useState();
   const [loading, setLoading] = useState(false);
+  const [code, setCode] = useState(`function add(a, b) {\n  return a + b;\n}`);
 
   const style = {
     position: "absolute",
@@ -92,13 +94,31 @@ function ActionModal({ open, handleClose }: { open: boolean; handleClose: () => 
           <Typography variant="h6" sx={{ fontWeight: 300 }}>
             Request Body Sample
           </Typography>
-          <StyledInput required={true} fullWidth multiline rows={10} {...formik.getFieldProps("example_request")} placeholder=" example: curl https://api.example.come/endpoint/1" />
+          <CodeEditor
+            language="js"
+            placeholder="Please enter sample request body. eg: `curl https://api.test.com/posts`"
+            {...formik.getFieldProps("example_request")}
+            padding={15}
+            style={{
+              fontWeight: "bold",
+            }}
+            data-color-mode="light"
+          />
         </Grid>
         <Grid item md={6}>
           <Typography variant="h6" sx={{ fontWeight: 300 }}>
             Response Body Sample
           </Typography>
-          <StyledInput required={true} fullWidth multiline rows={10} {...formik.getFieldProps("example_response")} placeholder="example:  {'id':1, 'body':'some example body'}" />
+          <CodeEditor
+            language="js"
+            data-color-mode="light"
+            placeholder='Please enter sample response body. eg: {id: 1, post: "this is the post body"}'
+            {...formik.getFieldProps("example_response")}
+            padding={15}
+            style={{
+              fontWeight: "bold",
+            }}
+          />
         </Grid>
 
         <Grid item md={2} sx={{ marginBottom: "1.5rem" }} className="justify-center">

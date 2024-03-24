@@ -34,6 +34,8 @@
     "react-sip": "^0.8.1",
     "react-timer-hook": "^3.0.7",
     "regenerator-runtime": "^0.14.0",
+    "rehype-prism-plus": "^2.0.0",
+    "rehype-rewrite": "^4.0.2",
     "yup": "^1.2.0"
   },
   "devDependencies": {
