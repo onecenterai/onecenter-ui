@@ -411,6 +411,7 @@ function EngageCall({ partnerId, partner }) {
             website={partner?.website}
             description={partner?.description}
             logo={partner?.logo}
+            assigned_phone={partner?.assigned_phone}
             category={partner?.category}
             primaryBtn={`Call ${partner?.name ? partner?.name : ""}`}
             primaryFunc={() => {

@@ -17,6 +17,7 @@ export const createAgent = createAsyncThunk("agent/create", async (values: {}) =
     });
 
     if (response.status >= 200 && response.status < 300) {
+      console.log("sucess");
     } else {
       console.error("Error:", response.status, response.statusText);
     }

@@ -18,6 +18,7 @@ import Agents from "./pages/Dashboard/Agents/Agents";
 import { useEffect } from "react";
 import PartnerOverview from "./pages/Dashboard/PartnerOverview/PartnerOverview";
 import PartnerInfo from "./pages/TryOneCenter/PartnerInfo";
+import Actions from "./pages/Dashboard/Actions/Actions";
 
 function App() {
   const location = useLocation();
@@ -61,6 +62,7 @@ function App() {
                 <Route path="/upload" element={<UploadResource />} />
                 <Route path="/resources" element={<Resources />} />
                 <Route path="/agents" element={<Agents />} />
+                <Route path="/actions" element={<Actions />} />
                 <Route path="/overview" element={<PartnerOverview />} />
                 <Route path="/tryonecenter/:id" element={<PartnerInfo />} />
               </>

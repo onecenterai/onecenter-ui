@@ -23,4 +23,10 @@ export const navigation = [
     icon: "./icons/agents.png",
     activeIcon: "./icons/agents.png",
   },
+  {
+    name: "actions",
+    title: "Actions",
+    icon: "./icons/agents.png",
+    activeIcon: "./icons/agents.png",
+  },
 ];
