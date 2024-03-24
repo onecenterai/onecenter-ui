@@ -43,6 +43,7 @@ function PartnerOverview() {
           <Card
             logo={partner?.logo}
             name={partner?.name}
+            assigned_phone={partner?.assigned_phone}
             website={partner?.website}
             iconContainerWidth={"20rem"}
             description={partner?.description}

@@ -68,6 +68,7 @@ function Card({ primaryBtn, website, primaryFunc, btnDisable, iconContainerWidth
   const classes = useStyles();
   const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
   console.log(description);
+  console.log(primaryFunc);
 
   return (
     // <Grid item md={4}>

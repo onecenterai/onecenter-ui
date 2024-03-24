@@ -14,7 +14,6 @@ function ActionModal({ open, handleClose }: { open: boolean; handleClose: () => 
   const dispatch = useDispatch<AppDispatch>();
   const [alert, setAlert] = useState();
   const [loading, setLoading] = useState(false);
-  const [code, setCode] = useState(`function add(a, b) {\n  return a + b;\n}`);
 
   const style = {
     position: "absolute",
