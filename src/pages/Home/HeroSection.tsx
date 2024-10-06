@@ -46,7 +46,14 @@ function HeroSection() {
   const classes = useStyles();
   return (
     <div className={classes.heroSection}>
-      <Container sx={{ height: "100%", display: "flex", justifyContent: "space-evenly", flexDirection: "column" }}>
+      <Container
+        sx={{
+          height: "100%",
+          display: "flex",
+          justifyContent: "space-evenly",
+          flexDirection: "column",
+        }}
+      >
         <div>
           <Typography variant="h1" color="error" sx={{ textAlign: "center" }}>
             Customer Service made simple for
@@ -58,28 +65,63 @@ function HeroSection() {
               <span className={classes.span}> customers.</span>
             </span>
           </Typography>
-          <Typography variant="body1" color="secondary" sx={{ textAlign: "center", padding: "4rem 0rem" }} className={classes.heroSection_subText}>
+          {/* <Typography variant="body1" color="secondary" sx={{ textAlign: "center", padding: "4rem 0rem" }} className={classes.heroSection_subText}>
             Enhancing Customer Connections with AI-Powered Care: Discover OneCenter, your key to effortless customer service. <br /> Experience the future of support with our conversational AI
             technology, bridging the gap between organizations and their valued customers.{" "}
-          </Typography>
-          <Grid className="center-center" sx={{ gap: "2rem", padding: "2rem 0rem" }}>
+          </Typography> */}
+          <Grid
+            className="center-center"
+            sx={{ gap: "2rem", padding: "2rem 0rem" }}
+          >
             <Link to="/tryonecenter">
-              <Button variant="contained" color="error" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
+              <Button
+                variant="contained"
+                color="error"
+                size="large"
+                sx={{
+                  borderRadius: "5rem",
+                  textTransform: "none",
+                  fontSize: "1.4rem",
+                }}
+              >
                 Try OneCenter
               </Button>
             </Link>
-            <Button variant="outlined" color="primary" size="large" sx={{ borderRadius: "5rem", textTransform: "none", fontSize: "1.4rem" }}>
+            <Button
+              variant="outlined"
+              color="primary"
+              disabled
+              size="large"
+              sx={{
+                borderRadius: "5rem",
+                textTransform: "none",
+                fontSize: "1.4rem",
+              }}
+            >
               <PlayArrowRounded /> Watch Demo Video
             </Button>
           </Grid>
         </div>
         <Grid item md={12}>
-          <Typography variant="body2" color="error" sx={{ textAlign: "center", fontFamily: "lexend" }}>
+          <Typography
+            variant="body2"
+            color="error"
+            sx={{ textAlign: "center", fontFamily: "lexend" }}
+          >
             We have relationship with some companies
           </Typography>
-          <div className="center-center" style={{ gap: "2rem", height: "70px" }}>
+          <div
+            className="center-center"
+            style={{ gap: "2rem", height: "70px" }}
+          >
             {partnerships.map((partner) => {
-              return <img key={partner.image} src={partner.image} className={classes.partnerImage} />;
+              return (
+                <img
+                  key={partner.image}
+                  src={partner.image}
+                  className={classes.partnerImage}
+                />
+              );
             })}
           </div>
         </Grid>
