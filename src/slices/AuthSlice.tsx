@@ -13,16 +13,18 @@ const initialState = {
 };
 export const logUser = createAsyncThunk("log/user", async (credentials: {}) => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, credentials, {
-      headers: {
-        "Content-Type": "application/json",
-        "Bypass-Tunnel-Reminder": "Bypass-Tunnel-Reminder",
-      },
-    });
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/login`,
+      credentials,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Bypass-Tunnel-Reminder": "Bypass-Tunnel-Reminder",
+        },
+      }
+    );
     if (response.status >= 200 && response.status < 300) {
       const data = response.data;
-      console.log(data);
-      console.log(response);
       localStorage.setItem("data", JSON.stringify(data));
 
       return data;
@@ -31,38 +33,51 @@ export const logUser = createAsyncThunk("log/user", async (credentials: {}) => {
     return error.response.data;
   }
 });
-export const registerPartner = createAsyncThunk("register/user", async (credentials: {}) => {
-  console.log(credentials);
-  try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/partner`, credentials, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status >= 200 && response.status < 300) {
-      console.log("successful", response.data);
-      return response.data;
+export const registerPartner = createAsyncThunk(
+  "register/user",
+  async (credentials: {}) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/partner`,
+        credentials,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("successful", response.data);
+        return response.data;
+      }
+    } catch (error: any) {
+      return error.response.data;
     }
-  } catch (error: any) {
-    return error.response.data;
   }
-});
-export const registerUser = createAsyncThunk("register/user", async (credentials: {}) => {
-  console.log(credentials);
-  try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/register`, credentials, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status >= 200 && response.status < 300) {
-      console.log("successful", response.data);
-      return response.data;
+);
+export const registerUser = createAsyncThunk(
+  "register/user",
+  async (credentials: {}) => {
+    console.log(credentials);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/register`,
+        credentials,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        console.log("successful", response.data);
+        return response.data;
+      }
+    } catch (error: any) {
+      return error.response.data;
     }
-  } catch (error: any) {
-    return error.response.data;
   }
-});
+);
 
 export const logOut = createAsyncThunk("auth/logout", async () => {
   localStorage.removeItem("token");

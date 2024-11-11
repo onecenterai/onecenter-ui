@@ -1,4 +1,15 @@
-import { Alert, Box, Checkbox, Container, Divider, Grid, IconButton, InputAdornment, Theme, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Checkbox,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Theme,
+  Typography,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { StyledInput } from "../../../styled-components/styledInput";
 import { StyledButton } from "../../../styled-components/styledButton";
@@ -87,17 +98,15 @@ function SignIn() {
 
   const onSubmit = async (values: any) => {
     const action = await dispatch(logUser(values));
+    localStorage.setItem("token", action?.payload?.token);
     const userToken = action?.payload?.token;
     const userRole = action?.payload?.user?.role;
     const data = action?.payload;
 
     if (userToken) {
-      console.log(userToken);
-      console.log(data);
-      localStorage.setItem("token", userToken);
       if (userRole === "agentadmin") {
         dispatch(getPartner(data.user.agent.partner_id));
-        console.log(data);
+
         navigate("/overview");
       } else {
         navigate("/tryonecenter");
@@ -144,7 +153,9 @@ function SignIn() {
                     fullWidth
                     variant="outlined"
                     sx={{ fontWeight: 400, fontSize: "1rem" }}
-                    startIcon={<img src="./icons/google.png" className={classes.icon} />}
+                    startIcon={
+                      <img src="./icons/google.png" className={classes.icon} />
+                    }
                     disabled={true}
                   >
                     Sign in with Google
@@ -156,7 +167,12 @@ function SignIn() {
                     fullWidth
                     variant="outlined"
                     sx={{ fontWeight: 400, fontSize: "1rem" }}
-                    startIcon={<img src="./icons/apple-logo.png" className={classes.icon} />}
+                    startIcon={
+                      <img
+                        src="./icons/apple-logo.png"
+                        className={classes.icon}
+                      />
+                    }
                     disabled={true}
                   >
                     Sign in with Apple
@@ -169,38 +185,82 @@ function SignIn() {
                 </Typography>
               </Divider>
               <Grid container>
-                <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
+                <Grid
+                  item
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{ marginBottom: "1.5rem" }}
+                >
                   {alert == "Wrong password" ? (
-                    <Alert severity="warning" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
+                    <Alert
+                      severity="warning"
+                      sx={{ fontSize: "1.4rem", width: "100%" }}
+                      className="center-center"
+                    >
                       {alert}, Please try again
                     </Alert>
                   ) : alert == "User not found" ? (
-                    <Alert severity="warning" sx={{ fontSize: "1.4rem", width: "100%" }} className="center-center">
+                    <Alert
+                      severity="warning"
+                      sx={{ fontSize: "1.4rem", width: "100%" }}
+                      className="center-center"
+                    >
                       {alert},{" "}
-                      <Link to="/signup" style={{ textDecoration: "underline", color: "#3A49F9" }}>
+                      <Link
+                        to="/signup"
+                        style={{
+                          textDecoration: "underline",
+                          color: "#3A49F9",
+                        }}
+                      >
                         Sign up
                       </Link>
                     </Alert>
                   ) : null}
                 </Grid>
-                <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
+                <Grid
+                  item
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{ marginBottom: "1.5rem" }}
+                >
                   {errors.email && touched.email ? (
-                    <Typography variant="h6" sx={{ fontWeight: 400, color: "red" }}>
+                    <Typography
+                      variant="h6"
+                      sx={{ fontWeight: 400, color: "red" }}
+                    >
                       {errors.email}
                     </Typography>
                   ) : null}
                   <Typography variant="h6" sx={{ fontWeight: 300 }}>
                     Email Address
                   </Typography>
-                  <StyledInput variant="outlined" color="primary" fullWidth {...formik.getFieldProps("email")} />
+                  <StyledInput
+                    variant="outlined"
+                    color="primary"
+                    fullWidth
+                    {...formik.getFieldProps("email")}
+                  />
                 </Grid>
-                <Grid item md={12} sm={12} xs={12} sx={{ marginBottom: "1.5rem" }}>
+                <Grid
+                  item
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{ marginBottom: "1.5rem" }}
+                >
                   <Box className="justify-space-btw">
                     <Typography variant="h6" sx={{ fontWeight: 300 }}>
                       Password
                     </Typography>
 
-                    <Typography variant="h6" color="primary" sx={{ fontWeight: 400 }}>
+                    <Typography
+                      variant="h6"
+                      color="primary"
+                      sx={{ fontWeight: 400 }}
+                    >
                       Forgot Password?
                     </Typography>
                   </Box>
@@ -213,7 +273,10 @@ function SignIn() {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton onClick={handleClickShowPassword} edge="end">
+                          <IconButton
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
@@ -221,13 +284,32 @@ function SignIn() {
                     }}
                   />
                 </Grid>
-                <Grid item md={12} className="align-center" sx={{ gap: ".7rem", marginBottom: "1.5rem" }}>
+                <Grid
+                  item
+                  md={12}
+                  className="align-center"
+                  sx={{ gap: ".7rem", marginBottom: "1.5rem" }}
+                >
                   <Checkbox sx={{ padding: 0 }} color="primary" />
-                  <Typography variant="h6" color="info" sx={{ fontWeight: 300 }}>
+                  <Typography
+                    variant="h6"
+                    color="info"
+                    sx={{ fontWeight: 300 }}
+                  >
                     Remember Me
                   </Typography>
                 </Grid>
-                <Grid item md={12} xs={12} sm={12} sx={{ marginBottom: "1.5rem", display: "flex", justifyContent: "center" }}>
+                <Grid
+                  item
+                  md={12}
+                  xs={12}
+                  sm={12}
+                  sx={{
+                    marginBottom: "1.5rem",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
                   {!loading ? (
                     <StyledButton
                       variant="contained"
@@ -244,9 +326,16 @@ function SignIn() {
                   )}
                 </Grid>
                 <Grid item md={12} sx={{ marginBottom: "1.5rem" }}>
-                  <Typography variant="h6" color="info" sx={{ fontWeight: 400 }}>
+                  <Typography
+                    variant="h6"
+                    color="info"
+                    sx={{ fontWeight: 400 }}
+                  >
                     Dont have an account?{" "}
-                    <Link to="/signup" style={{ color: "#0070ff", fontWeight: 600 }}>
+                    <Link
+                      to="/signup"
+                      style={{ color: "#0070ff", fontWeight: 600 }}
+                    >
                       Sign Up
                     </Link>
                   </Typography>
