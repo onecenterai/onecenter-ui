@@ -97,6 +97,7 @@ function SignIn() {
   };
 
   const onSubmit = async (values: any) => {
+    console.log("new update 11 NOV 2024");
     const action = await dispatch(logUser(values));
     localStorage.setItem("token", action?.payload?.token);
     const userToken = action?.payload?.token;
