@@ -87,19 +87,20 @@ function HeroSection() {
                 Try OneCenter
               </Button>
             </Link>
-            <Button
-              variant="outlined"
-              color="primary"
-              disabled
-              size="large"
-              sx={{
-                borderRadius: "5rem",
-                textTransform: "none",
-                fontSize: "1.4rem",
-              }}
-            >
-              <PlayArrowRounded /> Watch Demo Video
-            </Button>
+            <Link to="https://youtu.be/k38CAWfq2kM" target="__blank">
+              <Button
+                variant="outlined"
+                color="primary"
+                size="large"
+                sx={{
+                  borderRadius: "5rem",
+                  textTransform: "none",
+                  fontSize: "1.4rem",
+                }}
+              >
+                <PlayArrowRounded /> Watch Demo Video
+              </Button>
+            </Link>
           </Grid>
         </div>
         <Grid item md={12}>
